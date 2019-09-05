@@ -12,27 +12,25 @@
     </head>
     <body>
         <div class="limiter">
-            <div class="container-login100" style="background-image: url('images/fundo.png')">
+            <div class="container-login100"> <!--style="background-image: url('images/fundo.png')"-->
                 <div class="wrap-login100 p-t-30 p-b-50">
                     <span class="login100-form-title p-b-41">
                         REMANF<span style="text-transform: lowercase;">e</span> Login
                     </span>
-                    <form autocomplete="off" class="login100-form validate-form p-b-30 p-t-5">
+                    <form action="config/verifica_login.php" method="POST" autocomplete="off" class="login100-form validate-form p-b-30 p-t-5" name="formLogin" id="formLogin">
 
                         <div class="wrap-input100 validate-input" data-validate = "Informe o usuário">
-                            <input class="input100" type="text" name="usuario" placeholder="Usuário">
+                            <input id="usuario" class="input100" type="text" name="usuario" placeholder="Usuário">
                             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate="Informe a senha">
-                            <input class="input100" type="password" name="senha" placeholder="Senha">
+                            <input id="senha" class="input100" type="password" name="senha" placeholder="Senha">
                             <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                         </div>
 
                         <div class="container-login100-form-btn m-t-30">
-                            <button class="login100-form-btn adjust-button">
-                                Login
-                            </button>
+                            <button type="submit" class="login100-form-btn adjust-button">Login</button>
                         </div>
 
                     </form>

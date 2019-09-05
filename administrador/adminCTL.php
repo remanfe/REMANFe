@@ -1,0 +1,51 @@
+<?php
+
+if (isset($_POST['gravar'])) {
+    include '../config/conexao.php';
+    include '../classes/administrador.php';
+
+    $cpf = $_POST['cpf'];
+    $nome = $_POST['nome'];
+    $cep = $_POST['cep'];
+    $logradouro = $_POST['logradouro'];
+    $numero_logradouro = $_POST['numero'];
+    $bairro_logradouro = $_POST['bairro'];
+    $cidade_logradouro = $_POST['cidade'];
+    $estado_logradouro = $_POST['estado'];
+    $celular = $_POST['celular'];
+    $celular_comercial = $_POST['celular_com'];
+    $email = $_POST['email'];
+    $usuario_login = $_POST['usuario'];
+    $senha_login = $_POST['senha'];
+    $status = $_POST['status'];
+
+    $conn = conexao();
+    $stmt = $conn->prepare("INSERT INTO public.administrador(
+	cpf_admin, nome_admin, cep_admin, logradouro_admin, numero_logradouro_admin, 
+        bairro_logradouro_admin, cidade_logradouro_admin, uf_logradoruo_admin, celular_admin, 
+        celular_comercial_admin, email_admin, usuario_login_admin, senha_login_admin, 
+        status_admin, data_integracao, tipo_usuario)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_date, 0);");
+    $stmt->bindParam(1, $cpf);
+    $stmt->bindParam(2, $nome);
+    $stmt->bindParam(3, $cep);
+    $stmt->bindParam(4, $logradouro);
+    $stmt->bindParam(5, $numero_logradouro);
+    $stmt->bindParam(6, $bairro_logradouro);
+    $stmt->bindParam(7, $cidade_logradouro);
+    $stmt->bindParam(8, $estado_logradouro);
+    $stmt->bindParam(9, $celular);
+    $stmt->bindParam(10, $celular_comercial);
+    $stmt->bindParam(11, $email);
+    $stmt->bindParam(12, $usuario_login);
+    $stmt->bindParam(13, $senha_login);
+    $stmt->bindParam(14, $status);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Administrador cadastrado com sucesso!');</script>";
+        header('location: ./cadastrar_admin.php');
+    } else {
+        echo "<script>alert('Erro ao cadastrar administrador!');</script>";
+    }
+}
+?>

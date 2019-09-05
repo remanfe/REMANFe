@@ -1,9 +1,16 @@
+<?php
+session_start();
+if ($_SESSION['nome_admin'] == null) {
+header('location: ./login.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>REMANFe | Dashboard</title>
+        <title>REMANFe | Página Inicial</title>
         <!-- Diga ao navegador para responder à largura da tela -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -42,8 +49,8 @@
                                 <ul class="dropdown-menu">
                                     <!-- Imagem do usuário -->
                                     <li class="user-header">
-                                        <img src="dist/img/avatar5.png" class="img-circle" alt="Imagem de Perfil">
-                                        <p>REMANFe - Admin</p>
+                                        <img src="dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
+                                        <p><?php echo $_SESSION['nome_admin']; ?> - Admin</p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
@@ -51,7 +58,7 @@
                                             <a href="#" class="btn btn-default btn-flat">Dados cadastrais</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Sair</a>
+                                            <a href="./logout.php" class="btn btn-default btn-flat">Sair</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -61,68 +68,31 @@
                 </nav>
                 <!-- /.header -->
             </header>
-            <!-- Coluna do lado esquerdo. Contém o logotipo e a barra lateral. -->
-            <aside class="main-sidebar">
-                <!-- sidebar: estilo pode ser encontrado em sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="dist/img/avatar5.png" class="img-circle" alt="Imagem de Perfil">
-                        </div>
-                        <div class="pull-left info">
-                            <p>Usuário REMANFe</p>
-                        </div>
-                    </div>
-                    <!-- Sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">MENU</li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-user-plus"></i><span>CADASTRAR</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Administrador</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Contador</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Empresa</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-edit"></i><span>NF-e (Nota Fiscal Eletrônica)</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
-                                <li><a href="#"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-print"></i><span>GERAR DANFe</span>
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
+
+            <?php
+            if ($_SESSION['tipo_usuario'] == 0) {
+                include_once('menu/menu_admin.php');
+            } else {
+                if ($_SESSION['tipo_usuario'] == 1) {
+                    include_once('menu/menu_contador.php');
+                } else {
+                    if ($_SESSION['tipo_usuario'] == 2) {
+                        include_once('menu/menu_empresa.php');
+                    } 
+                }
+            }
+            ?>
 
             <!-- Content Wrapper. Contém o conteúdo da página -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Dashboard
-                        <small>Painel de Controle</small>
+                        Página Incial
+                        <small>Utilize as opções do menu lateral esquerdo</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li class="active">Dashboard</li>
+                        <li><a><i class="fa fa-dashboard"></i>Inicio</a></li>
                     </ol>
                 </section>
                 <section class="content-header">
