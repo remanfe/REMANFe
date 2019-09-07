@@ -19,33 +19,58 @@ if (isset($_POST['gravar'])) {
     $senha_login = $_POST['senha'];
     $status = $_POST['status'];
 
-    $conn = conexao();
-    $stmt = $conn->prepare("INSERT INTO public.administrador(
+    if (empty($cpf)) {
+        $msg = 'CPF não informado! Verifique-o, por gentileza.';
+        header('location: ../cadastrar_admin.php?mensagem=' . $msg);
+    } else {
+        $verificarCPF = verificarCPF($cpf);
+
+        if (count($verificarCPF) > 0) {
+            $msg = 'O CPF informado já foi cadastrado! Verifique-o, por gentileza.';
+            header('location: ../cadastrar_admin.php?mensagem=' . $msg);
+        } else {
+            $conn = conexao();
+            $stmt = $conn->prepare("INSERT INTO public.administrador(
 	cpf_admin, nome_admin, cep_admin, logradouro_admin, numero_logradouro_admin, 
         bairro_logradouro_admin, cidade_logradouro_admin, uf_logradoruo_admin, celular_admin, 
         celular_comercial_admin, email_admin, usuario_login_admin, senha_login_admin, 
         status_admin, data_integracao, tipo_usuario)
 	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, current_date, 0);");
-    $stmt->bindParam(1, $cpf);
-    $stmt->bindParam(2, $nome);
-    $stmt->bindParam(3, $cep);
-    $stmt->bindParam(4, $logradouro);
-    $stmt->bindParam(5, $numero_logradouro);
-    $stmt->bindParam(6, $bairro_logradouro);
-    $stmt->bindParam(7, $cidade_logradouro);
-    $stmt->bindParam(8, $estado_logradouro);
-    $stmt->bindParam(9, $celular);
-    $stmt->bindParam(10, $celular_comercial);
-    $stmt->bindParam(11, $email);
-    $stmt->bindParam(12, $usuario_login);
-    $stmt->bindParam(13, $senha_login);
-    $stmt->bindParam(14, $status);
+            $stmt->bindParam(1, $cpf);
+            $stmt->bindParam(2, $nome);
+            $stmt->bindParam(3, $cep);
+            $stmt->bindParam(4, $logradouro);
+            $stmt->bindParam(5, $numero_logradouro);
+            $stmt->bindParam(6, $bairro_logradouro);
+            $stmt->bindParam(7, $cidade_logradouro);
+            $stmt->bindParam(8, $estado_logradouro);
+            $stmt->bindParam(9, $celular);
+            $stmt->bindParam(10, $celular_comercial);
+            $stmt->bindParam(11, $email);
+            $stmt->bindParam(12, $usuario_login);
+            $stmt->bindParam(13, $senha_login);
+            $stmt->bindParam(14, $status);
 
-    if ($stmt->execute()) {
-        echo "<script>alert('Administrador cadastrado com sucesso!');</script>";
-        header('location: ./cadastrar_admin.php');
-    } else {
-        echo "<script>alert('Erro ao cadastrar administrador!');</script>";
+            if ($stmt->execute()) {
+                $msg = 'Administrador cadastrado com sucesso!';
+                header('location: ../cadastrar_admin.php?mensagem=' . $msg);
+            } else {
+                echo "<script>alert('Erro ao cadastrar administrador!');</script>";
+            }
+        }
     }
+} else if (isset($_POST['alterar'])) {
+    
 }
+
+function verificarCPF($cpf) {
+    include_once('../config/conexao.php');
+
+    $conn = conexao();
+    $stmt = $conn->prepare("select * from administrador where cpf_admin = '" . $cpf . "';");
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>

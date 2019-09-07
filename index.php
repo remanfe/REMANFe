@@ -1,7 +1,17 @@
 <?php
 session_start();
-if ($_SESSION['nome_admin'] == null) {
-header('location: ./login.php');
+if ($_SESSION['tipo_usuario'] == 0) {
+    if ($_SESSION['nome_admin'] == null) {
+        header('location: ./login.php');
+    } else if ($_SESSION['tipo_usuario'] == 1) {
+        if ($_SESSION['nome_contador'] == null) {
+            header('location: ./login.php');
+        }
+    } else if ($_SESSION['tipo_usuario'] == 2) {
+        if ($_SESSION['nome_empresa'] == null) {
+            header('location: ./login.php');
+        }
+    }
 }
 ?>
 
@@ -58,7 +68,7 @@ header('location: ./login.php');
                                             <a href="#" class="btn btn-default btn-flat">Dados cadastrais</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="./logout.php" class="btn btn-default btn-flat">Sair</a>
+                                            <a href="config/logout.php" class="btn btn-default btn-flat">Sair</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -72,14 +82,10 @@ header('location: ./login.php');
             <?php
             if ($_SESSION['tipo_usuario'] == 0) {
                 include_once('menu/menu_admin.php');
-            } else {
-                if ($_SESSION['tipo_usuario'] == 1) {
-                    include_once('menu/menu_contador.php');
-                } else {
-                    if ($_SESSION['tipo_usuario'] == 2) {
-                        include_once('menu/menu_empresa.php');
-                    } 
-                }
+            } else if ($_SESSION['tipo_usuario'] == 1) {
+                include_once('menu/menu_contador.php');
+            } else if ($_SESSION['tipo_usuario'] == 2) {
+                include_once('menu/menu_empresa.php');
             }
             ?>
 
@@ -97,7 +103,6 @@ header('location: ./login.php');
                 </section>
                 <section class="content-header">
                     HELLO WORLD!
-                </section>
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">

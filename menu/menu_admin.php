@@ -13,7 +13,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../REMANFe/administrador/cadastrar_admin.php"><i class="fa fa-circle-o"></i>Administrador</a></li>
+                    <li><a href="cadastrar_admin.php"><i class="fa fa-circle-o"></i>Administrador</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Contador</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Empresa</a></li>
                 </ul>
