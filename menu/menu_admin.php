@@ -6,20 +6,50 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU</li>
             <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user-plus"></i><span>CADASTRAR</span>
+                <a href="">
+                    <i class="fa fa-user-plus"></i><span>CADASTRAR e LISTAR</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="cadastrar_admin.php"><i class="fa fa-circle-o"></i>Administrador</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Contador</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Empresa</a></li>
+                    <li class="treeview">
+                        <a href=""><i class="fa fa-circle-o"></i>Administrador
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="./admin_cadastrar.php"><i class="fa fa-circle-o"></i>Cadastrar</a></li>
+                            <li><a href=""><i class="fa fa-circle-o"></i>Listar</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href=""><i class="fa fa-circle-o"></i>Contador
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href=""><i class="fa fa-circle-o"></i>Cadastrar</a></li>
+                            <li><a href=""><i class="fa fa-circle-o"></i>Listar</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href=""><i class="fa fa-circle-o"></i>Empresa
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href=""><i class="fa fa-circle-o"></i>Cadastrar</a></li>
+                            <li><a href=""><i class="fa fa-circle-o"></i>Listar</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#">
+                <a href="">
                     <i class="fa fa-edit"></i><span>NF-e (Nota Fiscal Eletrônica)</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -31,7 +61,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="">
                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
                 </a>
             </li>

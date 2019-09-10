@@ -37,7 +37,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
-                <a href="#" class="logo">
+                <a href="index.php" class="logo">
                     <!-- mini logotipo para barra lateral 50x50 pixels -->
                     <span class="logo-mini"><b>RMF</b></span>
                     <!-- logotipo para estado regular e dispositivos móveis -->
@@ -53,7 +53,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <ul class="nav navbar-nav">
                             <!-- User Account: o estilo pode ser encontrado em dropdown.less -->
                             <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="hidden-xs">REMANFe</span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -98,7 +98,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <small>Utilize as opções do menu lateral esquerdo</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a><i class="fa fa-dashboard"></i>Inicio</a></li>
+                        <li><a><i class="fa fa-home"></i>Inicio</a></li>
                     </ol>
                 </section>
                 <section class="content-header">
