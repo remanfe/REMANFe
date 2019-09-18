@@ -3,18 +3,17 @@ session_start();
 if ($_SESSION['tipo_usuario'] == 0) {
     if ($_SESSION['nome_admin'] == null) {
         header('location: ./login.php');
-    } else if ($_SESSION['tipo_usuario'] == 1) {
-        if ($_SESSION['nome_contador'] == null) {
-            header('location: ./login.php');
-        }
-    } else if ($_SESSION['tipo_usuario'] == 2) {
-        if ($_SESSION['nome_empresa'] == null) {
-            header('location: ./login.php');
-        }
+    }
+} else if ($_SESSION['tipo_usuario'] == 1) {
+    if ($_SESSION['nome_cont'] == null) {
+        header('location: ./login.php');
+    }
+} else if ($_SESSION['tipo_usuario'] == 2) {
+    if ($_SESSION['nome_empresa'] == null) {
+        header('location: ./login.php');
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -28,10 +27,18 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <!-- Font Awesome -->
         <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="css/AdminLTE.min.css">
+        <link rel="stylesheet" href="components/css/AdminLTE.min.css">
         <!-- Skin AdminLTE. -->
         <!--<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">-->
-        <link rel="stylesheet" href="css/skins/skin-blue.min.css">
+        <link rel="stylesheet" href="components/css/skins/skin-blue.min.css">
+        <!-- jQuery 3 -->
+        <script src="components/jquery/dist/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="components/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="components/js/adminlte.min.js"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -59,7 +66,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 <ul class="dropdown-menu">
                                     <!-- Imagem do usuário -->
                                     <li class="user-header">
-                                        <img src="dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
+                                        <img src="components/dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
                                         <p><?php echo $_SESSION['nome_admin']; ?> - Admin</p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -68,7 +75,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                             <a href="#" class="btn btn-default btn-flat">Dados cadastrais</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="config/logout.php" class="btn btn-default btn-flat">Sair</a>
+                                            <a href="controller/logout.php" class="btn btn-default btn-flat">Sair</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -81,11 +88,135 @@ if ($_SESSION['tipo_usuario'] == 0) {
 
             <?php
             if ($_SESSION['tipo_usuario'] == 0) {
-                include_once('menu/menu_admin.php');
+//                include_once('view/menu_admin.php');
+                ?>
+                <!-- Coluna do lado esquerdo. Contém o logotipo e a barra lateral. -->
+                <aside class="main-sidebar">
+                    <!-- sidebar: estilo pode ser encontrado em sidebar.less -->
+                    <section class="sidebar">
+                        <!-- Sidebar menu: : style can be found in sidebar.less -->
+                        <ul class="sidebar-menu" data-widget="tree">
+                            <li class="header">MENU</li>
+                            <li class="treeview">
+                                <a href="">
+                                    <i class="fa fa-user-plus"></i><span>CADASTRAR e LISTAR</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="view/admin_listar.php"><i class="fa fa-circle-o"></i>Administrador</a></li>
+                                    <li><a href="view/contador_listar.php"><i class="fa fa-circle-o"></i>Contador</a></li>
+                                    <li><a href="view/empresa_listar.php"><i class="fa fa-circle-o"></i>Empresa</a></li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="">
+                                    <i class="fa fa-edit"></i><span>NF-e (Nota Fiscal Eletrônica)</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="view/upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
+                                    <li><a href="view/download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-print"></i><span>GERAR DANFe</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                    <!-- /.sidebar -->
+                </aside>
+                <?php
             } else if ($_SESSION['tipo_usuario'] == 1) {
-                include_once('menu/menu_contador.php');
+//                include_once('view/menu_contador.php');
+                ?>
+                <!-- Coluna do lado esquerdo. Contém o logotipo e a barra lateral. -->
+                <aside class="main-sidebar">
+                    <!-- sidebar: estilo pode ser encontrado em sidebar.less -->
+                    <section class="sidebar">
+                        <!-- Sidebar menu: : style can be found in sidebar.less -->
+                        <ul class="sidebar-menu" data-widget="tree">
+                            <li class="header">MENU</li>
+                            <li class="treeview">
+                                <a href="">
+                                    <i class="fa fa-user-plus"></i><span>CADASTRAR e LISTAR</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="treeview">
+                                        <a href=""><i class="fa fa-circle-o"></i>Empresa
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="view/empresa_cadastrar.php"><i class="fa fa-circle-o"></i>Cadastrar</a></li>
+                                            <li><a href="view/empresa_listar.php"><i class="fa fa-circle-o"></i>Listar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="">
+                                    <i class="fa fa-edit"></i><span>NF-e (Nota Fiscal Eletrônica)</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="view/upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
+                                    <li><a href="view/download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-print"></i><span>GERAR DANFe</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                    <!-- /.sidebar -->
+                </aside>
+                <?php
             } else if ($_SESSION['tipo_usuario'] == 2) {
-                include_once('menu/menu_empresa.php');
+//                include_once('view/menu_empresa.php');
+                ?>
+                <!-- Coluna do lado esquerdo. Contém o logotipo e a barra lateral. -->
+                <aside class="main-sidebar">
+                    <!-- sidebar: estilo pode ser encontrado em sidebar.less -->
+                    <section class="sidebar">
+                        <!-- Sidebar menu: : style can be found in sidebar.less -->
+                        <ul class="sidebar-menu" data-widget="tree">
+                            <li class="header">MENU</li>
+                            <li class="treeview">
+                                <a href="">
+                                    <i class="fa fa-edit"></i><span>NF-e (Nota Fiscal Eletrônica)</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="view/upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
+                                    <li><a href="view/download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-print"></i><span>GERAR DANFe</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                    <!-- /.sidebar -->
+                </aside>
+                <?php
             }
             ?>
 
@@ -115,14 +246,5 @@ if ($_SESSION['tipo_usuario'] == 0) {
             <!-- Adicione o sidebar. Este div deve ser colocado imediatamente após a barra lateral de controle. -->
             <div class="control-sidebar-bg"></div>
         </div>
-
-        <!-- jQuery 3 -->
-        <script src="components/jquery/dist/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="components/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- AdminLTE App -->
-        <script src="js/adminlte.min.js"></script>
     </body>
 </html>

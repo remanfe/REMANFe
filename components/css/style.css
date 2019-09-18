@@ -1,0 +1,27 @@
+.adjust-button{
+    width: 50%;
+    margin: 0 30px;
+}
+
+.button-cadastrar-limpar{
+    margin-top: 20px;
+}
+
+.button-listar{
+    margin-top: 25px;
+}
+
+.button-cadastrar{
+    margin-top: 25px;
+    text-align: right;
+}
+
+.img-espaco{
+    margin-left: 10px;
+}
+
+.msg-login{
+    margin: 5px 0 -20px 0;
+    text-align: center;
+    color: red;
+}

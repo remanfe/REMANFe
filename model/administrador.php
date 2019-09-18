@@ -1,13 +1,16 @@
 <?php
+
 class administrador {
+
     var $cpf_admin;
     var $nome_admin;
     var $cep_admin;
     var $logradouro_admin;
+    var $complemento_logradouro_admin;
     var $numero_logradouro_admin;
     var $bairro_logradouro_admin;
     var $cidade_logradouro_admin;
-    var $estado_logradouro_admin;
+    var $uf_logradouro_admin;
     var $celular_admin;
     var $celular_comercial_admin;
     var $email_admin;
@@ -16,6 +19,7 @@ class administrador {
     var $status_admin;
     var $data_integracao_admin;
     var $tipo_usuario_admin;
+
     function getCpf_admin() {
         return $this->cpf_admin;
     }
@@ -32,6 +36,10 @@ class administrador {
         return $this->logradouro_admin;
     }
 
+    function getComplemento_logradouro_admin() {
+        return $this->complemento_logradouro_admin;
+    }
+
     function getNumero_logradouro_admin() {
         return $this->numero_logradouro_admin;
     }
@@ -44,8 +52,8 @@ class administrador {
         return $this->cidade_logradouro_admin;
     }
 
-    function getEstado_logradouro_admin() {
-        return $this->estado_logradouro_admin;
+    function getUf_logradouro_admin() {
+        return $this->uf_logradouro_admin;
     }
 
     function getCelular_admin() {
@@ -96,6 +104,10 @@ class administrador {
         $this->logradouro_admin = $logradouro_admin;
     }
 
+    function setComplemento_logradouro_admin($complemento_logradouro_admin) {
+        $this->complemento_logradouro_admin = $complemento_logradouro_admin;
+    }
+
     function setNumero_logradouro_admin($numero_logradouro_admin) {
         $this->numero_logradouro_admin = $numero_logradouro_admin;
     }
@@ -108,8 +120,8 @@ class administrador {
         $this->cidade_logradouro_admin = $cidade_logradouro_admin;
     }
 
-    function setEstado_logradouro_admin($estado_logradouro_admin) {
-        $this->estado_logradouro_admin = $estado_logradouro_admin;
+    function setUf_logradouro_admin($uf_logradouro_admin) {
+        $this->uf_logradouro_admin = $uf_logradouro_admin;
     }
 
     function setCelular_admin($celular_admin) {
@@ -144,15 +156,16 @@ class administrador {
         $this->tipo_usuario_admin = $tipo_usuario_admin;
     }
 
-    function __construct($cpf_admin, $nome_admin, $cep_admin, $logradouro_admin, $numero_logradouro_admin, $bairro_logradouro_admin, $cidade_logradouro_admin, $estado_logradouro_admin, $celular_admin, $celular_comercial_admin, $email_admin, $usuario_login_admin, $senha_login_admin, $status_admin, $data_integracao_admin, $tipo_usuario_admin) {
+    function __construct($cpf_admin, $nome_admin, $cep_admin, $logradouro_admin, $complemento_logradouro_admin, $numero_logradouro_admin, $bairro_logradouro_admin, $cidade_logradouro_admin, $uf_logradouro_admin, $celular_admin, $celular_comercial_admin, $email_admin, $usuario_login_admin, $senha_login_admin, $status_admin, $data_integracao_admin, $tipo_usuario_admin) {
         $this->cpf_admin = $cpf_admin;
         $this->nome_admin = $nome_admin;
         $this->cep_admin = $cep_admin;
         $this->logradouro_admin = $logradouro_admin;
+        $this->complemento_logradouro_admin = $complemento_logradouro_admin;
         $this->numero_logradouro_admin = $numero_logradouro_admin;
         $this->bairro_logradouro_admin = $bairro_logradouro_admin;
         $this->cidade_logradouro_admin = $cidade_logradouro_admin;
-        $this->estado_logradouro_admin = $estado_logradouro_admin;
+        $this->uf_logradouro_admin = $uf_logradouro_admin;
         $this->celular_admin = $celular_admin;
         $this->celular_comercial_admin = $celular_comercial_admin;
         $this->email_admin = $email_admin;
@@ -162,5 +175,6 @@ class administrador {
         $this->data_integracao_admin = $data_integracao_admin;
         $this->tipo_usuario_admin = $tipo_usuario_admin;
     }
+
 }
 ?>

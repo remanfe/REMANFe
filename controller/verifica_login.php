@@ -23,13 +23,18 @@ if (isset($_POST['usuario'])) {
         $_SESSION['tipo_usuario'] = $res[0]['tipo_usuario'];
         $_SESSION['status_admin'] = $res[0]['status_admin'];
 
-        if ($_SESSION['status_admin'] == 'ativo') {
+        if ($_SESSION['status_admin'] == 'Ativo') {
             header('location: ../index.php');
         } else {
             header('location: ../login.php');
+            $msg = 'Erro ao efetuar login!';
+            header('location: ../login.php?mensagem=' . $msg);
         }
     } else {
         header('location: ../login.php');
+            $msg = 'Erro ao efetuar login, verifique os dados de acesso!';
+            header('location: ../login.php?mensagem=' . $msg);
+//            header('location: ../login.php');
     }
 } else {
     header('location: ../login.php');

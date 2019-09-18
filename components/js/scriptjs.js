@@ -4,4 +4,7 @@ $(document).ready(function () {
     $('#celular').mask('(##)#####-####');
     $('#celular_com').mask('(##)#####-####');
     $('#numero').mask('####');
+    $('#cnpj').mask('##.###.###/####-##');
+    $('#ie').mask('##########');
+    $('#telefone').mask('(##)####-####');
 });
