@@ -6,5 +6,6 @@ $(document).ready(function () {
     $('#numero').mask('####');
     $('#cnpj').mask('##.###.###/####-##');
     $('#ie').mask('##########');
+    $('#crt').mask('##################');
     $('#telefone').mask('(##)####-####');
 });

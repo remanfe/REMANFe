@@ -125,7 +125,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                     </ol>
                 </section>
                 <section class="content-header">
-                    <form action="contador_listar.php" method="POST">
+                    <form action="empresa_listar.php" method="POST">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
@@ -137,7 +137,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3 button-cadastrar">
-                                    <a href="contador_cadastrar.php"><input type="button" value="Cadastrar Contador" class="btn btn-success form-control" /></a>
+                                    <a href="empresa_cadastrar.php"><input type="button" value="Cadastrar Empresa" class="btn btn-success form-control" /></a>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             include_once('../controller/conexao.php');
 
                             $conn = conexao();
-                            $stmt = $conn->prepare("select * from contador where nome_cont LIKE '%" . $_POST['nome'] . "%' ORDER BY nome_cont;");
+                            $stmt = $conn->prepare("select * from empresa where nome_empresa LIKE '%" . $_POST['nome'] . "%' ORDER BY nome_empresa;");
                             $stmt->execute();
 
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -173,16 +173,16 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             for ($i = 0; $i < count($retorno); $i++) {
                                 echo "<tr class='row'>";
                                 echo "	<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['nome_cont'] . "</span>";
+                                echo "		<span>" . $retorno[$i]['nome_empresa'] . "</span>";
                                 echo "	</td>";
                                 echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['cnpj_cont'] . "</span>";
+                                echo "		<span>" . $retorno[$i]['cnpj_empresa'] . "</span>";
                                 echo "</td>";
                                 echo "<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['email_cont'] . "</span>";
+                                echo "		<span>" . $retorno[$i]['email_empresa'] . "</span>";
                                 echo "</td>";
                                 echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['telefone_cont'] . "</span>";
+                                echo "		<span>" . $retorno[$i]['telefone_empresa'] . "</span>";
                                 echo "</td>";
                                 echo "<td class='col-md-3'>";
                                 echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
@@ -209,13 +209,13 @@ if ($_SESSION['tipo_usuario'] == 0) {
     </body>
 </html>
 <?php
-include_once ('../controller/contadorCTL.php');
+include_once ('../controller/empresaCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
         excluirAdmin($_REQUEST['cnpj']);
-        echo "<script language='javascript'> alert('Administrador excluído com sucesso!')</script>";
+        echo "<script language='javascript'> alert('Empresa excluído com sucesso!')</script>";
     } else if ($_REQUEST['acao'] == "atualizar") {
-        echo "<script>document.location.href='contador_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";
+        echo "<script>document.location.href='empresa_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";
     }
 }
 ?>
