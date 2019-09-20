@@ -55,7 +55,7 @@ if (isset($_POST['gravar'])) {
 
             if ($stmt->execute()) {
                 $msg = 'Administrador cadastrado com sucesso!';
-                header('location: ../view/admin_cadastrar.php?mensagem=' . $msg);
+                header('location: ../view/admin_listar.php?mensagem=' . $msg);
             } else {
                 $msg = 'Erro ao cadastrar administrador!';
                 header('location: ../view/admin_cadastrar.php?mensagem=' . $msg);
@@ -66,10 +66,7 @@ if (isset($_POST['gravar'])) {
     include '../controller/conexao.php';
     include '../model/administrador.php';
 
-    $cpf = $_POST['cpf'];
-    
-    echo 'CPF: '. $cpf;
-    
+    $cpf = $_POST['cpf'];    
     $nome = $_POST['nome'];
     $cep = $_POST['cep'];
     $logradouro = $_POST['logradouro'];
@@ -111,7 +108,7 @@ if (isset($_POST['gravar'])) {
 
     if ($stmt->execute()) {
         $msg = 'Administrador atualizado com sucesso!';
-        header('location: ../view/admin_cadastrar.php?mensagem=' . $msg);
+        header('location: ../view/admin_listar.php?mensagem=' . $msg);
     } else {
         $msg = 'Erro ao atualizar administrador!';
         header('location: ../view/admin_cadastrar.php?mensagem=' . $msg);

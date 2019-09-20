@@ -25,3 +25,21 @@
     text-align: center;
     color: red;
 }
+
+.img-responsivo{
+    max-width: 80%;
+}
+
+
+.fundo-gradiente{
+    background-image: linear-gradient(to left bottom, #3c8dbc, #347496, #2e5c72, #294451, #222d32);
+}
+
+
+/* Responsivo */
+
+@media screen and (max-width: 479px) {
+    .img-responsivo{
+        max-width: 50%;
+    }
+}

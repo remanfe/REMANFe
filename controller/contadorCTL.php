@@ -5,7 +5,7 @@ session_start();
 if (isset($_POST['gravar'])) {
     include '../controller/conexao.php';
     include '../model/contador.php';
-    
+
     $cnpj = $_POST['cnpj'];
     $cpfAdminCont = $_SESSION['cpf_admin'];
     $nome = $_POST['nome'];
@@ -62,21 +62,18 @@ if (isset($_POST['gravar'])) {
 
             if ($stmt->execute()) {
                 $msg = 'Contador cadastrado com sucesso!';
-                header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);
+                header('location: ../view/contador_listar.php?mensagem=' . $msg);
             } else {
                 $msg = 'Erro ao cadastrar contador!';
                 header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);
             }
         }
     }
-}else if (isset($_POST['atualizar'])) {
+} else if (isset($_POST['atualizar'])) {
     include '../controller/conexao.php';
     include '../model/contador.php';
 
-    $cnpj = $_POST=['cnpj'];
-    
-    echo 'CNPJ: '. $cnpj;
-  
+    $cnpj = $_POST['cnpj'];
     $nome = $_POST['nome'];
     $nomef = $_POST['nomef'];
     $cep = $_POST['cep'];
@@ -99,29 +96,28 @@ if (isset($_POST['gravar'])) {
         cidade_logradouro_cont=?, uf_logradouro_cont=?, telefone_cont=?, email_cont=?, 
         usuario_login_cont=?, senha_login_cont=?, status_cont=?
 	WHERE cnpj_cont=?;";
-    
-    header('location: ../view/contador_cadastrar.php?mensagem=' . $sql);
-    
+
     $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $nome);
-            $stmt->bindParam(2, $nomef);
-            $stmt->bindParam(3, $cep);
-            $stmt->bindParam(4, $logradouro);
-            $stmt->bindParam(5, $complemento_logradouro);
-            $stmt->bindParam(6, $numero_logradouro);
-            $stmt->bindParam(7, $bairro_logradouro);
-            $stmt->bindParam(8, $cidade_logradouro);
-            $stmt->bindParam(9, $estado_logradouro);
-            $stmt->bindParam(10, $telefone);
-            $stmt->bindParam(11, $email);
-            $stmt->bindParam(12, $usuario_login);
-            $stmt->bindParam(13, $senha_login);
-            $stmt->bindParam(14, $status);
-            $stmt->bindParam(15, $cnpj);
+    $stmt->bindParam(1, $nome);
+    $stmt->bindParam(2, $nomef);
+    $stmt->bindParam(3, $cep);
+    $stmt->bindParam(4, $logradouro);
+    $stmt->bindParam(5, $complemento_logradouro);
+    $stmt->bindParam(6, $numero_logradouro);
+    $stmt->bindParam(7, $bairro_logradouro);
+    $stmt->bindParam(8, $cidade_logradouro);
+    $stmt->bindParam(9, $estado_logradouro);
+    $stmt->bindParam(10, $telefone);
+    $stmt->bindParam(11, $email);
+    $stmt->bindParam(12, $usuario_login);
+    $stmt->bindParam(13, $senha_login);
+    $stmt->bindParam(14, $status);
+    $stmt->bindParam(15, $cnpj);
 
     if ($stmt->execute()) {
         $msg = 'Contador atualizado com sucesso!';
-        header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);
+        echo ' ' . $cnpj;
+        header('location: ../view/contador_listar.php?mensagem=' . $msg);
     } else {
         $msg = 'Erro ao atualizar Contador!';
         header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);

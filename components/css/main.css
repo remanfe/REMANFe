@@ -176,7 +176,11 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.65);
+    background-image: url(../images/fundo-login.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .4;
 }
 
 .wrap-login100 {

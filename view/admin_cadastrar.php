@@ -86,7 +86,17 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <!-- Imagem do usuário -->
                                     <li class="user-header">
                                         <img src="../components/dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
-                                        <p><?php echo $_SESSION['nome_admin']; ?> - Admin</p>
+                                        <p>
+                                            <?php
+                                            if ($_SESSION['tipo_usuario'] == 0) {
+                                                echo $_SESSION['nome_admin'] . " - Administrador";
+                                            } else if ($_SESSION['tipo_usuario'] == 1) {
+                                                echo $_SESSION['nome_cont'] . " - Contador";
+                                            } else if ($_SESSION['tipo_usuario'] == 2) {
+                                                echo $_SESSION['nome_empresa'] . " - Empresa";
+                                            }
+                                            ?>
+                                        </p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">

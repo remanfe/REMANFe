@@ -39,6 +39,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
         <script src="components/js/adminlte.min.js"></script>
+        <!--Style-->
+        <link rel="stylesheet" href="components/css/style.css">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -46,9 +48,10 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 <!-- Logo -->
                 <a href="index.php" class="logo">
                     <!-- mini logotipo para barra lateral 50x50 pixels -->
-                    <span class="logo-mini"><b>RMF</b></span>
+                    <!--<span class="logo-mini"><b>RMF</b></span>-->
                     <!-- logotipo para estado regular e dispositivos móveis -->
-                    <span class="logo-lg"><b>REMANFe</b></span>
+                    <!--<span class="logo-lg"><b>REMANFe</b></span>-->
+                    <img src="components/images/sigla-branco.png" class="img-responsivo">
                 </a>
                 <!-- Header Navbar: o estilo pode ser encontrado em header.less -->
                 <nav class="navbar navbar-static-top">
@@ -61,13 +64,33 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             <!-- User Account: o estilo pode ser encontrado em dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="hidden-xs">REMANFe</span>
+                                    <span><i class="fa fa-user-o"></i>
+                                        <?php
+                                        if ($_SESSION['tipo_usuario'] == 0) {
+                                            echo $_SESSION['nome_admin'] . " - Administrador";
+                                        } else if ($_SESSION['tipo_usuario'] == 1) {
+                                            echo $_SESSION['nome_cont'] . " - Contador";
+                                        } else if ($_SESSION['tipo_usuario'] == 2) {
+                                            echo $_SESSION['nome_empresa'] . " - Empresa";
+                                        }
+                                        ?>
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- Imagem do usuário -->
                                     <li class="user-header">
                                         <img src="components/dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
-                                        <p><?php echo $_SESSION['nome_admin']; ?> - Admin</p>
+                                        <p>
+                                            <?php
+                                            if ($_SESSION['tipo_usuario'] == 0) {
+                                                echo $_SESSION['nome_admin'] . " - Administrador";
+                                            } else if ($_SESSION['tipo_usuario'] == 1) {
+                                                echo $_SESSION['nome_cont'] . " - Contador";
+                                            } else if ($_SESSION['tipo_usuario'] == 2) {
+                                                echo $_SESSION['nome_empresa'] . " - Empresa";
+                                            }
+                                            ?>
+                                        </p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
@@ -150,17 +173,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li class="treeview">
-                                        <a href=""><i class="fa fa-circle-o"></i>Empresa
-                                            <span class="pull-right-container">
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </span>
-                                        </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="view/empresa_cadastrar.php"><i class="fa fa-circle-o"></i>Cadastrar</a></li>
-                                            <li><a href="view/empresa_listar.php"><i class="fa fa-circle-o"></i>Listar</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="../view/empresa_listar.php"><i class="fa fa-circle-o"></i>Empresa</a></li>
                                 </ul>
                             </li>
                             <li class="treeview">

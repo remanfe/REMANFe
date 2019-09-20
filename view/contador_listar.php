@@ -193,6 +193,13 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         }
                         ?>
                     </table>
+                    <strong>
+                        <?php
+                        if (isset($_REQUEST['mensagem'])) {
+                            echo " " . $_REQUEST['mensagem'];
+                        }
+                        ?>
+                    </strong>
                 </section>
             </div>
             <!-- /.content-wrapper -->
@@ -212,7 +219,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
 include_once ('../controller/contadorCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
-        excluirAdmin($_REQUEST['cnpj']);
+        excluirContador($_REQUEST['cnpj']);
         echo "<script language='javascript'> alert('Administrador excluído com sucesso!')</script>";
     } else if ($_REQUEST['acao'] == "atualizar") {
         echo "<script>document.location.href='contador_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";

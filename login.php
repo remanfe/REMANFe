@@ -9,8 +9,9 @@
         <link rel="stylesheet" type="text/css" href="components/css/util.css">
         <link rel="stylesheet" type="text/css" href="components/css/main.css">
         <link rel="stylesheet" type="text/css" href="components/css/style.css">
+        <link rel="shortcut icon" href="components/images/favicon.png">   
     </head>
-    <body>
+    <body class="fundo-gradiente">
         <div class="limiter">
             <div class="container-login100"> <!--style="background-image: url('images/fundo.png')"-->
                 <div class="wrap-login100 p-t-30 p-b-50">

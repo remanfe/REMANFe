@@ -23,7 +23,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
             <?php
             include_once '../controller/contadorCTL.php';
             if (isset($_REQUEST['cnpj'])) {
-                $empresa = verificarCNPJ($_REQUEST['cnpj']);
+                $contador = verificarCNPJ($_REQUEST['cnpj']);
                 ?>
                 Atualizar
                 <?php
@@ -133,7 +133,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <?php
                         include_once '../controller/contadorCTL.php';
                         if (isset($_REQUEST['cnpj'])) {
-                            $empresa = verificarCNPJ($_REQUEST['cnpj']);
+                            $contador = verificarCNPJ($_REQUEST['cnpj']);
                             ?>
                             Atualizar
                             <?php
@@ -150,7 +150,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <?php
                         include_once '../controller/contadorCTL.php';
                         if (isset($_REQUEST['cnpj'])) {
-                            $empresa = verificarCNPJ($_REQUEST['cnpj']);
+                            $contador = verificarCNPJ($_REQUEST['cnpj']);
                             ?>
                             <li class="active">Atualizar</li>
                             <?php
@@ -166,7 +166,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 <?php
                 include_once '../controller/contadorCTL.php';
                 if (isset($_REQUEST['cnpj'])) {
-                    $empresa = verificarCNPJ($_REQUEST['cnpj']);
+                    $contador = verificarCNPJ($_REQUEST['cnpj']);
                     ?>
                     <section class="content-header">
                         <form action="../controller/contadorCTL.php" method="POST">
@@ -174,41 +174,41 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Nome:</label>
-                                        <input required="true" type="text" value="<?php echo $empresa[0]['nome_cont'] ?>" 
-                                               name="nome" class="form-control" placeholder="Digite o nome" minlength="10" maxlength="100" />
+                                        <input required="true" type="text" value="<?php echo $contador[0]['nome_cont'] ?>" 
+                                               name="nome"  class="form-control" placeholder="Digite o nome" minlength="10" maxlength="100" />
                                     </div>
                                     <div class="col-md-4">
                                         <label>Nome Fantasia:</label>
-                                        <input required="true" type="text" value="<?php echo $empresa[0]['nome_fantasia_cont'] ?>" 
+                                        <input required="true" type="text" value="<?php echo $contador[0]['nome_fantasia_cont'] ?>" 
                                                name="nomef" class="form-control" placeholder="Digite o nome fantasia" minlength="10" maxlength="100" />
                                     </div>
                                     <div class="col-md-2">
                                         <label>CNPJ:</label>
-                                        <input type="text" class="form-control" value="<?php echo $empresa[0]['cnpj_cont'] ?>" 
+                                        <input type="text" class="form-control" value="<?php echo $contador[0]['cnpj_cont'] ?>" 
                                                name="cnpj" id="cnpj" placeholder="99.999.999/9999-99" required="true" minlength="18" maxlength="18" readonly="true" />
                                     </div>
                                     <div class="col-md-2">
                                         <label>Inscrição Estadual:</label>
-                                        <input type="text" class="form-control" value="<?php echo $empresa[0]['ie_cont'] ?>" 
+                                        <input type="text" class="form-control" value="<?php echo $contador[0]['ie_cont'] ?>" 
                                                name="ie" id="ie" placeholder="999999999" required="true" minlength="9" maxlength="11" readonly="true" />
                                     </div>
                                 </div>
                                 <div class = "row">
                                     <div class="col-md-3">
                                         <label>E-mail:</label>
-                                        <input type="email" id="email" class="form-control" value="<?php echo $empresa[0]['email_cont'] ?>" 
+                                        <input type="email" id="email" class="form-control" value="<?php echo $contador[0]['email_cont'] ?>" 
                                                name="email" placeholder="exemplo@email.com" required="true" minlength="12" maxlength="100" />
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Telefone:</label>
-                                        <input type = "tel" class = "form-control" value = "<?php echo $empresa[0]['telefone_cont'] ?>"
+                                        <input type = "tel" class = "form-control" value = "<?php echo $contador[0]['telefone_cont'] ?>"
                                                name = "telefone" id = "telefone" placeholder = "(99)9999-9999" required = "true" minlength = "13" maxlength = "13" />
                                     </div>
                                     <div class="col-md-2">
                                         <label>Status:</label>
                                         <select id="cbStatus" class="form-control" name="status">
                                             <?php
-                                            if ("Ativo" == $empresa[0]['status_cont']) {
+                                            if ("Ativo" == $contador[0]['status_cont']) {
                                                 echo "<option selected value='Ativo'>Ativo</option>";
                                                 echo "<option value='Inativo'>Inativo</option>";
                                             } else {
@@ -222,58 +222,58 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 <div class = "row">
                                     <div class = "col-md-2">
                                         <label>CEP:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['cep_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['cep_cont'] ?>"
                                                name = "cep" id = "cep" placeholder = "99999-999" required = "true" minlength = "9" maxlength = "9" />
                                     </div>
                                     <div class = "col-md-3">
                                         <label>Logradouro:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['logradouro_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['logradouro_cont'] ?>"
                                                name = "logradouro" placeholder = "Digite a Rua ou Avenida" required = "true" minlength = "5" maxlength = "100" />
                                     </div>
                                     <div class = "col-md-3">
                                         <label>Complemento:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['complemento_logradouro_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['complemento_logradouro_cont'] ?>"
                                                name = "complemento" placeholder = "Digite o complemento" minlength = "2" maxlength = "50" />
                                     </div>
                                     <div class = "col-md-1">
                                         <label>Número:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['numero_logradouro_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['numero_logradouro_cont'] ?>"
                                                name = "numero" id = "numero" placeholder = "9999" required = "true" minlength = "2" maxlength = "4" />
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Bairro:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['bairro_logradouro_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['bairro_logradouro_cont'] ?>"
                                                name = "bairro" placeholder = "Digite o bairro" required = "true" minlength = "5" maxlength = "50" />
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Cidade:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['cidade_logradouro_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['cidade_logradouro_cont'] ?>"
                                                name = "cidade" placeholder = "Digite a cidade" required = "true" minlength = "5" maxlength = "50" />
                                     </div>
                                     <div class = "col-md-1">
                                         <label>Estado:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['uf_logradouro_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['uf_logradouro_cont'] ?>"
                                                name = "estado" id = "estado" placeholder = "UF" required = "true" minlength = "2" maxlength = "2" pattern = "[a-zA-Z\s]+$" />
                                     </div>
                                 </div>
                                 <div class = "row">
                                     <div class = "col-md-2">
                                         <label>Usuário:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $empresa[0]['usuario_login_cont'] ?>"
+                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['usuario_login_cont'] ?>"
                                                name = "usuario" placeholder = "Usuário para login" required = "true" minlength = "5" maxlength = "50" />
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Senha:</label>
-                                        <input type = "password" class = "form-control" value = "<?php echo $empresa[0]['senha_login_cont'] ?>"
+                                        <input type = "password" class = "form-control" value = "<?php echo $contador[0]['senha_login_cont'] ?>"
                                                name = "senha" placeholder = "Senha para login" required = "true" minlength = "8" maxlength = "50" />
                                     </div>
                                 </div>
                                 <div class = "row">
                                     <div class = "col-md-2 button-cadastrar-limpar">
-                                        <input type = "submit" value = "Atualizar" name = "atualizar" class = "btn btn-tumblr form-control">
+                                        <input type = "submit" value ="Atualizar" name="atualizar" class="btn btn-tumblr form-control">
                                     </div>
                                     <div class = "col-md-2 button-cadastrar-limpar">
-                                        <a href = "cont_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-linkedin form-control"></a>
+                                        <a href = "contador_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-linkedin form-control"></a>
                                     </div>
                                 </div>
                                 <h1>
