@@ -41,6 +41,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <script src="components/js/adminlte.min.js"></script>
         <!--Style-->
         <link rel="stylesheet" href="components/css/style.css">
+        <link rel="shortcut icon" href="components/images/favicon.png">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -67,11 +68,11 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <span><i class="fa fa-user-o"></i>
                                         <?php
                                         if ($_SESSION['tipo_usuario'] == 0) {
-                                            echo $_SESSION['nome_admin'] . " - Administrador";
+                                            echo $_SESSION['nome_admin'] . "";
                                         } else if ($_SESSION['tipo_usuario'] == 1) {
-                                            echo $_SESSION['nome_cont'] . " - Contador";
+                                            echo $_SESSION['nome_cont'] . "";
                                         } else if ($_SESSION['tipo_usuario'] == 2) {
-                                            echo $_SESSION['nome_empresa'] . " - Empresa";
+                                            echo $_SESSION['nome_empresa'] . "";
                                         }
                                         ?>
                                     </span>
@@ -130,7 +131,6 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 <ul class="treeview-menu">
                                     <li><a href="view/admin_listar.php"><i class="fa fa-circle-o"></i>Administrador</a></li>
                                     <li><a href="view/contador_listar.php"><i class="fa fa-circle-o"></i>Contador</a></li>
-                                    <li><a href="view/empresa_listar.php"><i class="fa fa-circle-o"></i>Empresa</a></li>
                                 </ul>
                             </li>
                             <li class="treeview">
@@ -248,16 +248,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 <section class="content-header">
                     HELLO WORLD!
             </div>
-            <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> Beta
-                </div>
-                <strong>Copyright &copy; 2019 REMANFe.</strong> Todos os direitos reservados.
-            </footer>
-
-            <!-- Adicione o sidebar. Este div deve ser colocado imediatamente após a barra lateral de controle. -->
-            <div class="control-sidebar-bg"></div>
+            <?php
+            include_once './view/footer.php';
+            ?>
         </div>
     </body>
 </html>

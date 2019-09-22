@@ -9,7 +9,9 @@
         <link rel="stylesheet" type="text/css" href="components/css/util.css">
         <link rel="stylesheet" type="text/css" href="components/css/main.css">
         <link rel="stylesheet" type="text/css" href="components/css/style.css">
-        <link rel="shortcut icon" href="components/images/favicon.png">   
+        <link rel="shortcut icon" href="components/images/favicon.png">
+        <script src="components/js/jquery/jquery-3.3.1.min.js"></script>
+        <script src="components/js/main.js"></script>
     </head>
     <body class="fundo-gradiente">
         <div class="limiter">
@@ -19,35 +21,31 @@
                         REMANF<span style="text-transform: lowercase;">e</span> Login
                     </span>
                     <form action="controller/verifica_login.php" method="POST" autocomplete="off" class="login100-form validate-form p-b-30 p-t-5" name="formLogin" id="formLogin">
-
                         <div class="wrap-input100 validate-input" data-validate = "Informe o usuário">
-                            <input id="usuario" class="input100" type="text" name="usuario" placeholder="Usuário">
+                            <input id="usuario" class="input100" type="text" name="usuario" placeholder="Usuário" required="true">
                             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate="Informe a senha">
-                            <input id="senha" class="input100" type="password" name="senha" placeholder="Senha">
+                            <input id="senha" class="input100" type="password" name="senha" placeholder="Senha" required="true">
                             <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                         </div>
 
                         <div class="container-login100-form-btn m-t-30">
                             <button type="submit" class="login100-form-btn adjust-button">Login</button>
                         </div>
-                        <p class="msg-login">
-                            <strong>
-                                <?php
-                                if (isset($_REQUEST['mensagem'])) {
-                                    echo " " . $_REQUEST['mensagem'];
-                                }
-                                ?>
-                            </strong>
-                        </p>
+                        <?php
+                        if (isset($_REQUEST['mensagem'])) {
+                            echo '<p class = "msg-login">';
+                            echo '<strong>';
+                            echo " " . $_REQUEST['mensagem'];
+                            echo '</strong>';
+                            echo '</p>';
+                        }
+                        ?>
                     </form>
                 </div>
             </div>
         </div>
-
-        <script src="components/js/jquery/jquery-3.3.1.min.js"></script>
-        <script src="components/js/main.js"></script>
     </body>
 </html>

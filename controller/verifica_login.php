@@ -11,7 +11,7 @@ if (isset($_POST['usuario'])) {
 
     $login_admin = $conn->prepare("SELECT * FROM administrador WHERE usuario_login_admin = ? and senha_login_admin = ?;");
     $login_contador = $conn->prepare("SELECT * FROM contador WHERE usuario_login_cont = ? and senha_login_cont = ?;");
-    $login_contador = $conn->prepare("SELECT * FROM empresa WHERE usuario_login_empresa = ? and senha_login_empresa = ?;");
+    $login_empresa = $conn->prepare("SELECT * FROM empresa WHERE usuario_login_empresa = ? and senha_login_empresa = ?;");
 
     if ($login_admin) {
         $stmt = $conn->prepare("SELECT * FROM administrador WHERE usuario_login_admin = ? and senha_login_admin = ?;");
@@ -66,7 +66,7 @@ if (isset($_POST['usuario'])) {
 //                    $msg = 'Erro ao efetuar login, verifique os dados de acesso! SEGUNDO IF';
 //                    header('location: ../login.php?mensagem=' . $msg);
 //            header('location: ../login.php');
-                $stmt = $conn->prepare("SELECT * FROM contador WHERE usuario_login_cont = ? and senha_login_cont = ?;");
+                $stmt = $conn->prepare("SELECT * FROM empresa WHERE usuario_login_empresa = ? and senha_login_empresa = ?;");
                 $stmt->bindParam(1, $usuario_login);
                 $stmt->bindParam(2, $senha_login);
                 $stmt->execute();
@@ -75,12 +75,12 @@ if (isset($_POST['usuario'])) {
 
                 if ($res != null) {
                     //Gravando valores dentro da sessão aberta:
-                    $_SESSION['cnpj_cont'] = $res[0]['cnpj_cont'];
-                    $_SESSION['nome_cont'] = $res[0]['nome_cont'];
+                    $_SESSION['cnpj_empresa'] = $res[0]['cnpj_empresa'];
+                    $_SESSION['nome_empresa'] = $res[0]['nome_empresa'];
                     $_SESSION['tipo_usuario'] = $res[0]['tipo_usuario'];
-                    $_SESSION['status_cont'] = $res[0]['status_cont'];
+                    $_SESSION['status_empresa'] = $res[0]['status_empresa'];
 
-                    if ($_SESSION['status_cont'] == 'Ativo') {
+                    if ($_SESSION['status_empresa'] == 'Ativo') {
                         header('location: ../index.php');
                     } else {
                         header('location: ../login.php');
@@ -89,7 +89,7 @@ if (isset($_POST['usuario'])) {
                     }
                 } else {
                     header('location: ../login.php');
-                    $msg = 'Erro ao efetuar login, verifique os dados de acesso! SEGUNDO IF';
+                    $msg = 'Erro ao efetuar login, verifique os dados de acesso!';
                     header('location: ../login.php?mensagem=' . $msg);
 //            header('location: ../login.php');                    
                 }

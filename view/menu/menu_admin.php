@@ -15,7 +15,6 @@
                 <ul class="treeview-menu">
                     <li><a href="../view/admin_listar.php"><i class="fa fa-circle-o"></i>Administrador</a></li>
                     <li><a href="../view/contador_listar.php"><i class="fa fa-circle-o"></i>Contador</a></li>
-                    <li><a href="../view/empresa_listar.php"><i class="fa fa-circle-o"></i>Empresa</a></li>
                 </ul>
             </li>
             <li class="treeview">

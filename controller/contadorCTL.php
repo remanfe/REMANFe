@@ -28,9 +28,9 @@ if (isset($_POST['gravar'])) {
         $msg = 'CNPJ não informado! Verifique-o, por gentileza.';
         header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);
     } else {
-        $verificarCNPJ = verificarCNPJ($cnpj);
+        $verificarCNPJcont = verificarCNPJcont($cnpj);
 
-        if (count($verificarCNPJ) > 0) {
+        if (count($verificarCNPJcont) > 0) {
             $msg = 'O CNPJ informado já foi cadastrado! Verifique-o, por gentileza.';
             header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);
         } else {
@@ -124,7 +124,7 @@ if (isset($_POST['gravar'])) {
     }
 }
 
-function verificarCNPJ($cnpj) {
+function verificarCNPJcont($cnpj) {
     include_once('../controller/conexao.php');
 
     $conn = conexao();

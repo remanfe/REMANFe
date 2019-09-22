@@ -19,21 +19,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>REMANFe | 
-            <?php
-            include_once '../controller/contadorCTL.php';
-            if (isset($_REQUEST['cnpj'])) {
-                $contador = verificarCNPJ($_REQUEST['cnpj']);
-                ?>
-                Atualizar
-                <?php
-            } else {
-                ?>
-                Cadastrar
-                <?php
-            }
-            ?>
-        </title>
+        <title>REMANFe | Cadastro Contador</title>
+        <link rel="shortcut icon" href="../components/images/favicon.png">
         <!-- Diga ao navegador para responder à largura da tela -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -61,61 +48,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-            <header class="main-header">
-                <!-- Logo -->
-                <a href="../index.php" class="logo">
-                    <!-- mini logotipo para barra lateral 50x50 pixels -->
-                    <span class="logo-mini"><b>RMF</b></span>
-                    <!-- logotipo para estado regular e dispositivos móveis -->
-                    <span class="logo-lg"><b>REMANFe</b></span>
-                </a>
-                <!-- Header Navbar: o estilo pode ser encontrado em header.less -->
-                <nav class="navbar navbar-static-top">
-                    <!-- Sidebar toggle button-->
-                    <a class="sidebar-toggle" data-toggle="push-menu" role="button">
-                        <span class="sr-only">Menu lateral</span>
-                    </a>
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
-                            <!-- User Account: o estilo pode ser encontrado em dropdown.less -->
-                            <li class="dropdown user user-menu">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="hidden-xs">REMANFe</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- Imagem do usuário -->
-                                    <li class="user-header">
-                                        <img src="../components/dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
-                                        <p>
-                                            <?php
-                                            if ($_SESSION['tipo_usuario'] == 0) {
-                                                echo $_SESSION['nome_admin'] . " - Administrador";
-                                            } else if ($_SESSION['tipo_usuario'] == 1) {
-                                                echo $_SESSION['nome_cont'] . " - Contador";
-                                            } else if ($_SESSION['tipo_usuario'] == 2) {
-                                                echo $_SESSION['nome_empresa'] . " - Empresa";
-                                            }
-                                            ?>
-                                        </p>
-                                    </li>
-                                    <!-- Menu Footer-->
-                                    <li class="user-footer">
-                                        <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Dados cadastrais</a>
-                                        </div>
-                                        <div class="pull-right">
-                                            <a href="../controller/logout.php" class="btn btn-default btn-flat">Sair</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- /.header -->
-            </header>
-
             <?php
+            include_once './header.php';
+
             if ($_SESSION['tipo_usuario'] == 0) {
                 include_once('menu/menu_admin.php');
             } else if ($_SESSION['tipo_usuario'] == 1) {
@@ -130,46 +65,22 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        <?php
-                        include_once '../controller/contadorCTL.php';
-                        if (isset($_REQUEST['cnpj'])) {
-                            $contador = verificarCNPJ($_REQUEST['cnpj']);
-                            ?>
-                            Atualizar
-                            <?php
-                        } else {
-                            ?>
-                            Cadastrar
-                            <?php
-                        }
-                        ?>
+                        Cadastro
                         <small>Contador</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
-                        <?php
-                        include_once '../controller/contadorCTL.php';
-                        if (isset($_REQUEST['cnpj'])) {
-                            $contador = verificarCNPJ($_REQUEST['cnpj']);
-                            ?>
-                            <li class="active">Atualizar</li>
-                            <?php
-                        } else {
-                            ?>
-                            <li class="active">Cadastrar</li>
-                            <?php
-                        }
-                        ?>
+                            <li class="active">Cadastro Contador</li>
                     </ol>
                 </section>
 
                 <?php
                 include_once '../controller/contadorCTL.php';
                 if (isset($_REQUEST['cnpj'])) {
-                    $contador = verificarCNPJ($_REQUEST['cnpj']);
+                    $contador = verificarCNPJcont($_REQUEST['cnpj']);
                     ?>
                     <section class="content-header">
-                        <form action="../controller/contadorCTL.php" method="POST">
+                        <form action="../controller/contadorCTL.php" method="POST" autocomplete="off">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -296,7 +207,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 } else {
                     ?>
                     <section class="content-header">
-                        <form action="../controller/contadorCTL.php" method="POST">
+                        <form action="../controller/contadorCTL.php" method="POST" autocomplete="off">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -395,6 +306,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <div class="col-md-2 button-cadastrar-limpar">
                                         <input type="reset" value="Limpar" class="btn btn-linkedin form-control">
                                     </div>
+                                <div class = "col-md-2 button-cadastrar-limpar">
+                                    <a href = "contador_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-dropbox form-control"></a>
+                                </div>
                                 </div>
                                 <h1>
                                     <?php
@@ -416,16 +330,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 }
                 ?>
             </div>
-            <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> Beta
-                </div>
-                <strong>Copyright &copy; 2019 REMANFe.</strong> Todos os direitos reservados.
-            </footer>
-
-            <!-- Adicione o sidebar. Este div deve ser colocado imediatamente após a barra lateral de controle. -->
-            <div class="control-sidebar-bg"></div>
+            <?php
+            include_once './footer.php';
+            ?>
         </div>
     </body>
 </html>
