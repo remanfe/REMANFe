@@ -173,7 +173,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="../view/empresa_listar.php"><i class="fa fa-circle-o"></i>Empresa</a></li>
+                                    <li><a href="view/empresa_listar.php"><i class="fa fa-circle-o"></i>Empresa</a></li>
                                 </ul>
                             </li>
                             <li class="treeview">

@@ -278,7 +278,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                         <input type = "submit" value = "Atualizar" name = "atualizar" class = "btn btn-tumblr form-control">
                                     </div>
                                     <div class = "col-md-2 button-cadastrar-limpar">
-                                        <a href = "cont_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-linkedin form-control"></a>
+                                        <a href = "empresa_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-linkedin form-control"></a>
                                     </div>
                                 </div>
                                 <h1>

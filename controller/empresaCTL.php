@@ -2,11 +2,11 @@
 
 session_start();
 
-if ($_SESSION['tipo_usuario'] == 0) {
-    $cnpjContEmpresa = $_SESSION['cpf_admin'];
-} else if ($_SESSION['tipo_usuario' == 1]) {
-    $cnpjContEmpresa = $_SESSION['cnpj_cont'];
-}
+//if ($_SESSION['tipo_usuario'] == 0) {
+//    $cnpjContEmpresa = $_SESSION['cpf_admin'];
+//} else if ($_SESSION['tipo_usuario' == 1]) {
+//    $cnpjContEmpresa = $_SESSION['cnpj_cont'];
+//}
 
 
 if (isset($_POST['gravar'])) {
@@ -15,6 +15,7 @@ if (isset($_POST['gravar'])) {
     include '../model/itemContadorEmpresa.php';
 
     $cnpj = $_POST['cnpj'];
+    $cnpjContEmpresa = $_SESSION['cnpj_cont'];
     $nome = $_POST['nome'];
     $nomef = $_POST['nomef'];
     $crt = $_POST['crt'];
@@ -71,15 +72,15 @@ if (isset($_POST['gravar'])) {
             $stmt->bindParam(17, $status);
 
             if ($stmt->execute()) {
-                $id_item_contador_empresa = $conn->lastInsertId();
+//                $id_item_contador_empresa = $conn->lastInsertId();
 
                 $stmt2 = $conn->prepare("INSERT INTO public.item_contador_empresa(
-                id_item_contador_empresa, cnpj_cont, cnpj_empresa, data_integracao_contadorempresa)
-                VALUES (?, ?, ?, current_date);");
+                cnpj_cont, cnpj_empresa, data_integracao_contadorempresa)
+                VALUES (?, ?, current_date);");
 
-                $stmt2->bindParam(1, $cnpj);
-                $stmt2->bindParam(2, $cnpjContEmpresa);
-                $stmt2->bindParam(3, $id_item_contador_empresa);
+                $stmt2->bindParam(1, $cnpjContEmpresa);
+                $stmt2->bindParam(2, $cnpj);
+//                $stmt2->bindParam(3, $id_item_contador_empresa);
                 
                 if ($stmt2->execute()) {
                     $msg = 'Empresa cadastrada com sucesso!';
@@ -95,7 +96,7 @@ if (isset($_POST['gravar'])) {
     include '../controller/conexao.php';
     include '../model/empresa.php';
 
-    $cnpj = $_POST = ['cnpj'];
+    $cnpj = $_POST['cnpj'];
 
     echo 'CNPJ: ' . $cnpj;
 
@@ -120,7 +121,7 @@ if (isset($_POST['gravar'])) {
         cep_empresa=?, logradouro_empresa=?, complemento_logradouro_empresa=?, 
         numero_logradouro_empresa=?, bairro_logradouro_empresa=?, cidade_logradouro_empresa=?, 
         uf_logradouro_empresa=?, telefone_empresa=?, email_empresa=?, usuario_login_empresa=?, 
-        senha_login_empresa=?, status_empresa=?, data_integracao=?, tipo_usuario=?
+        senha_login_empresa=?, status_empresa=?
 	WHERE cnpj_empresa=?;";
 
     header('location: ../view/contador_cadastrar.php?mensagem=' . $sql);
@@ -161,7 +162,7 @@ function verificarCNPJ($cnpj) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function excluirContador($cnpj) {
+function excluirEmpresa($cnpj) {
     include_once('../controller/conexao.php');
 
     $conn = conexao();

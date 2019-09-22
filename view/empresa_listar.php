@@ -185,8 +185,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 echo "		<span>" . $retorno[$i]['telefone_empresa'] . "</span>";
                                 echo "</td>";
                                 echo "<td class='col-md-3'>";
-                                echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
-                                echo "	<a href='?acao=excluir&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
+                                echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_empresa'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
+                                echo "	<a href='?acao=excluir&cnpj=" . $retorno[$i]['cnpj_empresa'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
                                 echo "</td>";
                                 echo "</tr>";
                             }
@@ -212,7 +212,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
 include_once ('../controller/empresaCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
-        excluirAdmin($_REQUEST['cnpj']);
+        excluirEmpresa($_REQUEST['cnpj']);
         echo "<script language='javascript'> alert('Empresa excluído com sucesso!')</script>";
     } else if ($_REQUEST['acao'] == "atualizar") {
         echo "<script>document.location.href='empresa_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";
