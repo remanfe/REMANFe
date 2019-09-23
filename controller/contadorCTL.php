@@ -1,13 +1,13 @@
 <?php
 
-session_start();
+//session_start();
 
 if (isset($_POST['gravar'])) {
     include '../controller/conexao.php';
     include '../model/contador.php';
 
     $cnpj = $_POST['cnpj'];
-    $cpfAdminCont = $_SESSION['cpf_admin'];
+    $cpfAdminCont = $_POST['cpfa'];
     $nome = $_POST['nome'];
     $nomef = $_POST['nomef'];
     $ie = $_POST['ie'];

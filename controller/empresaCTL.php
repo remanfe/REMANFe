@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+//session_start();
 
 if (isset($_POST['gravar'])) {
     include '../controller/conexao.php';
@@ -8,7 +8,8 @@ if (isset($_POST['gravar'])) {
     include '../model/itemContadorEmpresa.php';
 
     $cnpj = $_POST['cnpj'];
-    $cnpjContEmpresa = $_SESSION['cnpj_cont'];
+//    $cnpjContEmpresa = $_SESSION['cnpj_cont'];
+    $cnpjContEmpresa = $_POST['cnpjc'];
     $nome = $_POST['nome'];
     $nomef = $_POST['nomef'];
     $crt = $_POST['crt'];
@@ -62,6 +63,8 @@ if (isset($_POST['gravar'])) {
             $stmt->bindParam(15, $usuario_login);
             $stmt->bindParam(16, $senha_login);
             $stmt->bindParam(17, $status);
+            
+            echo 'CNPJJJJJJJJJJJJJJJ = ' . $cnpjContEmpresa;
 
             if ($stmt->execute()) {
 //                $id_item_contador_empresa = $conn->lastInsertId();
