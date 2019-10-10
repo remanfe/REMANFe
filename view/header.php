@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="../index.php" class="logo">
         <!-- mini logotipo para barra lateral 50x50 pixels -->
-        <!--<span class="logo-mini"><b>RMF</b></span>-->
+        <span class="logo-mini"><b>RMF</b></span>
         <!-- logotipo para estado regular e dispositivos móveis -->
         <!--<span class="logo-lg"><b>REMANFe</b></span>-->
         <img src="../components/images/sigla-branco.png" class="img-responsivo">
