@@ -50,7 +50,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <div class="wrapper">
             <?php
             include_once './header.php';
-            
+
             if ($_SESSION['tipo_usuario'] == 0) {
                 include_once('menu/menu_admin.php');
             } else if ($_SESSION['tipo_usuario'] == 1) {
@@ -78,7 +78,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label>Nome:</label>
+                                    <label>Pesquisar por nome:</label>
                                     <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome" />
                                 </div>
                                 <div class="col-md-2 button-listar">
@@ -114,7 +114,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             include_once('../controller/conexao.php');
 
                             $conn = conexao();
-                            $stmt = $conn->prepare("select * from contador where nome_cont LIKE '%" . $_POST['nome'] . "%' ORDER BY nome_cont;");
+                            $stmt = $conn->prepare("select * from contador where nome_cont iLIKE '%" . $_POST['nome'] . "%' ORDER BY nome_cont;");
                             $stmt->execute();
 
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -161,8 +161,12 @@ if ($_SESSION['tipo_usuario'] == 0) {
 include_once ('../controller/contadorCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
-        excluirContador($_REQUEST['cnpj']);
-        echo "<script language='javascript'> alert('Contador excluído com sucesso!')</script>";
+        try {
+            excluirContador($_REQUEST['cnpj']);
+            echo "<script language='javascript'> alert('Contador excluído com sucesso!')</script>";
+        } catch (PDOException $ex) {
+            echo "<script language='javascript'> alert('Não foi possível excluir o Contador! Este está vinculado à alguma empresa.')</script>";
+        }
     } else if ($_REQUEST['acao'] == "atualizar") {
         echo "<script>document.location.href='contador_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";
     }

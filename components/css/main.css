@@ -176,11 +176,11 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    /*background-image: url(../images/fundo-login.jpg);*/
+    background-image: url(../images/fundo.jpg);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    opacity: .4;
+    opacity: 0.4;
 }
 
 .wrap-login100 {

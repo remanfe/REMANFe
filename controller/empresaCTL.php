@@ -63,14 +63,12 @@ if (isset($_POST['gravar'])) {
             $stmt->bindParam(15, $usuario_login);
             $stmt->bindParam(16, $senha_login);
             $stmt->bindParam(17, $status);
-            
-            echo 'CNPJJJJJJJJJJJJJJJ = ' . $cnpjContEmpresa;
 
             if ($stmt->execute()) {
 //                $id_item_contador_empresa = $conn->lastInsertId();
 
                 $stmt2 = $conn->prepare("INSERT INTO public.item_contador_empresa(
-                cnpj_cont, cnpj_empresa, data_integracao_contadorempresa)
+                cnpj_cont, cnpj_empresa, data_integracao_contador_empresa)
                 VALUES (?, ?, current_date);");
 
                 $stmt2->bindParam(1, $cnpjContEmpresa);
@@ -163,11 +161,14 @@ function excluirEmpresa($cnpj) {
     include_once('../controller/conexao.php');
 
     $conn = conexao();
-    $stmt = $conn->prepare("delete from item_contador_empresa where cnpj_empresa = '" . $cnpj . "';");
-
+    $stmt = $conn->prepare("delete from empresa where cnpj_empresa = '" . $cnpj . "';");
+    
     if ($stmt->execute()) {
-        $stmt2 = $conn->prepare("delete from empresa where cnpj_empresa = '" . $cnpj . "';");
-        $stmt2->execute();
+        $stmt2 = $conn->prepare("delete from item_contador_empresa where cnpj_empresa = '" . $cnpj . "';");
+        if ($stmt2->execute()) {
+            $stmt3 = $conn->prepare("delete from empresa where cnpj_empresa = '" . $cnpj . "';");
+            $stmt3->execute();
+        }
     }
 }
 

@@ -51,6 +51,7 @@ if (isset($_POST['usuario'])) {
                 //Gravando valores dentro da sessão aberta:
                 $_SESSION['cnpj_cont'] = $res[0]['cnpj_cont'];
                 $_SESSION['nome_cont'] = $res[0]['nome_cont'];
+                $_SESSION['nome_fantasia_cont'] = $res[0]['nome_fantasia_cont'];
                 $_SESSION['tipo_usuario'] = $res[0]['tipo_usuario'];
                 $_SESSION['status_cont'] = $res[0]['status_cont'];
 
@@ -77,6 +78,7 @@ if (isset($_POST['usuario'])) {
                     //Gravando valores dentro da sessão aberta:
                     $_SESSION['cnpj_empresa'] = $res[0]['cnpj_empresa'];
                     $_SESSION['nome_empresa'] = $res[0]['nome_empresa'];
+                    $_SESSION['nome_fantasia_empresa'] = $res[0]['nome_fantasia_empresa'];
                     $_SESSION['tipo_usuario'] = $res[0]['tipo_usuario'];
                     $_SESSION['status_empresa'] = $res[0]['status_empresa'];
 

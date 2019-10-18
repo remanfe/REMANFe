@@ -101,7 +101,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <div class="col-md-2">
                                         <label>Inscrição Estadual:</label>
                                         <input type="text" class="form-control" value="<?php echo $contador[0]['ie_cont'] ?>" 
-                                               name="ie" id="ie" placeholder="999999999" required="true" minlength="9" maxlength="11" readonly="true" />
+                                               name="ie" id="ie" placeholder="999999999" required="true" minlength="5" maxlength="15" readonly="true" />
                                     </div>
                                     <div>
                                         <input type="hidden" value="<?php echo $_SESSION['cpf_admin']; ?>" id="cpfa" name="cpfa">
@@ -231,7 +231,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <div class="col-md-2">
                                         <label>Inscrição Estadual:</label>
                                         <input type="text" class="form-control"
-                                               name="ie" id="ie" placeholder="999999999" required="true" minlength="7" maxlength="11" />
+                                               name="ie" id="ie" placeholder="999999999" required="true" minlength="5" maxlength="15" />
                                     </div>
                                     <div>
                                         <input type="hidden" value="<?php echo $_SESSION['cpf_admin']; ?>" id="cpfa" name="cpfa">

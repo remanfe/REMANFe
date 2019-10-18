@@ -25,8 +25,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
-                    <li><a href="download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                    <li><a href="nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                 </ul>
             </li>
             <li>

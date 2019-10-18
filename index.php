@@ -70,9 +70,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                         if ($_SESSION['tipo_usuario'] == 0) {
                                             echo $_SESSION['nome_admin'] . "";
                                         } else if ($_SESSION['tipo_usuario'] == 1) {
-                                            echo $_SESSION['nome_cont'] . "";
+                                            echo $_SESSION['nome_fantasia_cont'] . "";
                                         } else if ($_SESSION['tipo_usuario'] == 2) {
-                                            echo $_SESSION['nome_empresa'] . "";
+                                            echo $_SESSION['nome_fantasia_empresa'] . "";
                                         }
                                         ?>
                                     </span>
@@ -86,9 +86,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                             if ($_SESSION['tipo_usuario'] == 0) {
                                                 echo $_SESSION['nome_admin'] . " - Administrador";
                                             } else if ($_SESSION['tipo_usuario'] == 1) {
-                                                echo $_SESSION['nome_cont'] . " - Contador";
+                                                echo $_SESSION['nome_fantasia_cont'] . " - Contador";
                                             } else if ($_SESSION['tipo_usuario'] == 2) {
-                                                echo $_SESSION['nome_empresa'] . " - Empresa";
+                                                echo $_SESSION['nome_fantasia_empresa'] . " - Empresa";
                                             }
                                             ?>
                                         </p>
@@ -141,8 +141,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="view/upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
-                                    <li><a href="view/download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                                    <li><a href="view/nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -184,13 +183,17 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="view/upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
-                                    <li><a href="view/download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                                    <li><a href="view/nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="">
                                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="view/guia.php">
+                                    <i class="fa fa-info-circle"></i><span>Guia de Utilização</span>
                                 </a>
                             </li>
                         </ul>
@@ -216,13 +219,18 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="view/upload_nfe.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
-                                    <li><a href="view/download_nfe.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
+                                    <li><a href="view/nfe_upload.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
+                                    <li><a href="view/nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="">
                                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="view/guia.php">
+                                    <i class="fa fa-info-circle"></i><span>Guia de Utilização</span>
                                 </a>
                             </li>
                         </ul>
@@ -246,7 +254,10 @@ if ($_SESSION['tipo_usuario'] == 0) {
                     </ol>
                 </section>
                 <section class="content-header">
-                    HELLO WORLD!
+                    <p>
+                        Bem-vindo ao Repositório para Manipulação de Arquivos NF-e.
+                    </p>
+                </section>
             </div>
             <?php
             include_once './view/footer.php';

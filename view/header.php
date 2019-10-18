@@ -23,9 +23,9 @@
                             if ($_SESSION['tipo_usuario'] == 0) {
                                 echo $_SESSION['nome_admin'] . "";
                             } else if ($_SESSION['tipo_usuario'] == 1) {
-                                echo $_SESSION['nome_cont'] . "";
+                                echo $_SESSION['nome_fantasia_cont'] . "";
                             } else if ($_SESSION['tipo_usuario'] == 2) {
-                                echo $_SESSION['nome_empresa'] . "";
+                                echo $_SESSION['nome_fantasia_empresa'] . "";
                             }
                             ?>
                         </span>
@@ -47,9 +47,9 @@
                                 if ($_SESSION['tipo_usuario'] == 0) {
                                     echo $_SESSION['nome_admin'] . " - Administrador";
                                 } else if ($_SESSION['tipo_usuario'] == 1) {
-                                    echo $_SESSION['nome_cont'] . " - Contador";
+                                    echo $_SESSION['nome_fantasia_cont'] . " - Contador";
                                 } else if ($_SESSION['tipo_usuario'] == 2) {
-                                    echo $_SESSION['nome_empresa'] . " - Empresa";
+                                    echo $_SESSION['nome_fantasia_empresa'] . " - Empresa";
                                 }
                                 ?>
                             </p>

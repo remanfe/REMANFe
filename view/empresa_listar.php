@@ -78,7 +78,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label>Nome:</label>
+                                    <label>Pesquisar por nome:</label>
                                     <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome" />
                                 </div>
                                 <div class="col-md-2 button-listar">
@@ -114,7 +114,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             include_once('../controller/conexao.php');
 
                             $conn = conexao();
-                            $stmt = $conn->prepare("select * from empresa where nome_empresa LIKE '%" . $_POST['nome'] . "%' ORDER BY nome_empresa;");
+                            $stmt = $conn->prepare("select * from empresa where nome_empresa iLIKE '%" . $_POST['nome'] . "%' ORDER BY nome_empresa;");
                             $stmt->execute();
 
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -161,9 +161,16 @@ if ($_SESSION['tipo_usuario'] == 0) {
 include_once ('../controller/empresaCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
-        excluirEmpresa($_REQUEST['cnpj']);
-        echo "<script language='javascript'> alert('Empresa excluída com sucesso!')</script>";
-    } else if ($_REQUEST['acao'] == "atualizar") {
+        try {
+            excluirEmpresa($_REQUEST['cnpj']);
+            echo "<script language='javascript'> alert('Empresa excluída com sucesso!')</script>";
+        } catch (PDOException $ex) {
+            echo "<script language='javascript'> alert('Não foi possível excluir a Empresa! Esta possui NF-e cadastradas.')</script>";
+        }
+    } else {
+        echo "<script language='javascript'> alert('Não foi possível excluir a Empresa! Esta possui NF-e cadastradas.')</script>";
+    }
+    if ($_REQUEST['acao'] == "atualizar") {
         echo "<script>document.location.href='empresa_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";
     }
 }

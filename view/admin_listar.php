@@ -78,7 +78,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <label>Nome:</label>
+                                    <label>Pesquisar por nome:</label>
                                     <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome" />
                                 </div>
                                 <div class="col-md-2 button-listar">
@@ -114,7 +114,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             include_once('../controller/conexao.php');
 
                             $conn = conexao();
-                            $stmt = $conn->prepare("select * from administrador where nome_admin LIKE '%" . $_POST['nome'] . "%' ORDER BY nome_admin;");
+                            $stmt = $conn->prepare("select * from administrador where nome_admin iLIKE '%" . $_POST['nome'] . "%' ORDER BY nome_admin;");
                             $stmt->execute();
 
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
