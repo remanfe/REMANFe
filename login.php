@@ -17,9 +17,12 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100 p-t-30 p-b-50">
-                    <span class="login100-form-title p-b-41">
+<!--                    <span class="login100-form-title p-b-41">
                         REMANF<span style="text-transform: lowercase;">e</span> Login
-                    </span>
+                    </span>-->
+                    <div class="imgLogo">
+                        <!--<img src="components/images/sigla-branco.png" width="100%" height="100%" alt="REMANFE-BRANCO"/>-->
+                    </div>
                     <form action="controller/verifica_login.php" method="POST" autocomplete="off" class="login100-form validate-form p-b-30 p-t-5" name="formLogin" id="formLogin">
                         <div class="wrap-input100 validate-input" data-validate = "Informe o usuário">
                             <input id="usuario" class="input100" type="text" name="usuario" placeholder="Usuário" required="true">

@@ -272,7 +272,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             for ($i = 0; $i < count($retorno); $i++) {
                                 $stmt2 = $conn->prepare("copy (select arq_nfe from nfe where cnf_nfe = " . $retorno[$i]['cnf_nfe'] . ") "
                                         . "to 'C:/REMANFe/notas/" . date('Y-m-d') . "_" . date('h-i-s') . "/" . $retorno[$i]['cnf_nfe'] . ".xml'");
-                                $stmt2->execute();
+                                $stmt2->execute(pg_fetch_a);
                             }
 
                             echo "<p style='color: green;'><b>Todas as NF-e com data de emissão no período especificado foram salvas com sucesso!</b></p>"

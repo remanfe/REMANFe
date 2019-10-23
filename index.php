@@ -145,7 +145,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </ul>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="view/danfe_gerar.php">
                                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
                                 </a>
                             </li>
@@ -187,7 +187,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </ul>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="view/danfe_gerar.php">
                                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
                                 </a>
                             </li>
@@ -224,7 +224,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </ul>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="view/danfe_gerar.php">
                                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
                                 </a>
                             </li>

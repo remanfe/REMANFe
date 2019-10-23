@@ -86,7 +86,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3 button-cadastrar">
-                                    <a href="nfe_cadastrar.php"><input type="button" value="Upload NFe" class="btn btn-success form-control" /></a>
+                                    <a href="pdf.php"><input type="button" value="GERAR DANFe" class="btn btn-success form-control" /></a>
                                 </div>
                             </div>
                         </div>
