@@ -21,7 +21,7 @@
                         REMANF<span style="text-transform: lowercase;">e</span> Login
                     </span>-->
                     <div class="imgLogo">
-                        <!--<img src="components/images/sigla-branco.png" width="100%" height="100%" alt="REMANFE-BRANCO"/>-->
+                        <img src="components/images/sigla-branco.png" width="100%" alt="REMANFE-BRANCO"/>
                     </div>
                     <form action="controller/verifica_login.php" method="POST" autocomplete="off" class="login100-form validate-form p-b-30 p-t-5" name="formLogin" id="formLogin">
                         <div class="wrap-input100 validate-input" data-validate = "Informe o usuário">

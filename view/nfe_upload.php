@@ -111,74 +111,88 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             $total = count($notas['name']);
                             $notas_sucesso = 0;
                             $notas_erro = 0;
+                            $cont_erro = 0;
+                            libxml_use_internal_errors(true);
 
                             for ($i = 0; $i < $total; $i++) {
                                 // Lê o arquivo XML e recebe um objeto com as informações
                                 $xml = simplexml_load_file($_FILES['notas']['tmp_name'][$i]);
-                                $novo_nome = $_FILES['notas']['name'][$i];
-                                $diretorio = "uploads/";
-                                // grava arquivo na pasta uploads para depois ser gravado no banco
-                                move_uploaded_file($_FILES['notas']['tmp_name'][$i], $diretorio . $novo_nome);
+                                if (!$xml) {
+                                    $cont_erro++;
+                                    $erros = libxml_get_errors();
+                                } else {
+                                    $novo_nome = $_FILES['notas']['name'][$i];
+                                    $diretorio = "uploads/";
+                                    // grava arquivo na pasta uploads para depois ser gravado no banco
+                                    move_uploaded_file($_FILES['notas']['tmp_name'][$i], $diretorio . $novo_nome);
 
-                                // define o caminho onde o arquivo será salvo
-                                $path = $_SERVER['DOCUMENT_ROOT'] . '/REMANFe/view/uploads/';
-                                $content = $path . $novo_nome;
+                                    // define o caminho onde o arquivo será salvo
+                                    $path = $_SERVER['DOCUMENT_ROOT'] . '/REMANFe/view/uploads/';
+                                    $content = $path . $novo_nome;
 
-                                foreach ($xml->NFe as $NFe) {
-                                    foreach ($xml->NFe->infNFe as $infNFe) {
-                                        foreach ($xml->NFe->infNFe->ide as $ide) {
-                                            $codigoNF = $ide->cNF;
-                                            $naturezaNF = $ide->natOp;
-                                            $numeroNF = $ide->nNF;
-                                            $datahoraNF = $ide->dhEmi;
-                                            $tipoNF = $ide->tpNF;
-                                        }
-                                        foreach ($xml->NFe->infNFe->emit as $emit) {
-                                            $nomeEmit = $emit->xNome;
-                                        }
-                                        foreach ($xml->NFe->infNFe->dest as $dest) {
-                                            $nomeDest = $dest->xNome;
-                                        }
-                                        foreach ($xml->NFe->infNFe->det as $det) {
-                                            foreach ($xml->NFe->infNFe->det->prod as $prod) {
-                                                $nomeProd = $prod->xProd;
+                                    foreach ($xml->NFe as $NFe) {
+                                        foreach ($xml->NFe->infNFe as $infNFe) {
+                                            foreach ($xml->NFe->infNFe->ide as $ide) {
+                                                $codigoNF = $ide->cNF;
+                                                $naturezaNF = $ide->natOp;
+                                                $numeroNF = $ide->nNF;
+                                                $datahoraNF = $ide->dhEmi;
+                                                $tipoNF = $ide->tpNF;
+                                            }
+                                            foreach ($xml->NFe->infNFe->emit as $emit) {
+                                                $nomeEmit = $emit->xNome;
+                                            }
+                                            foreach ($xml->NFe->infNFe->dest as $dest) {
+                                                $nomeDest = $dest->xNome;
+                                            }
+                                            foreach ($xml->NFe->infNFe->det as $det) {
+                                                foreach ($xml->NFe->infNFe->det->prod as $prod) {
+                                                    $nomeProd = $prod->xProd;
+                                                }
                                             }
                                         }
                                     }
-                                }
 
-                                $conn = conexao();
-                                $sql = "INSERT INTO public.nfe(
+                                    $conn = conexao();
+                                    $sql = "INSERT INTO public.nfe(
                                     cnf_nfe, cnpj_empresa, natop_nfe, nnf_nfe, dhemi_nfe, tp_nfe, nome_emit_nfe, nome_dest_nfe, 
                                     nome_prod_nfe, arq_nfe) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, XMLPARSE(DOCUMENT convert_from(pg_read_binary_file(?), 'UTF8')));";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bindParam(1, $codigoNF);
-                                $stmt->bindParam(2, $_SESSION['cnpj_empresa']);
-                                $stmt->bindParam(3, $naturezaNF);
-                                $stmt->bindParam(4, $numeroNF);
-                                $stmt->bindParam(5, $datahoraNF);
-                                $stmt->bindParam(6, $tipoNF);
-                                $stmt->bindParam(7, $nomeEmit);
-                                $stmt->bindParam(8, $nomeDest);
-                                $stmt->bindParam(9, $nomeProd);
-                                $stmt->bindParam(10, $content);
+                                    $stmt = $conn->prepare($sql);
+                                    $stmt->bindParam(1, $codigoNF);
+                                    $stmt->bindParam(2, $_SESSION['cnpj_empresa']);
+                                    $stmt->bindParam(3, $naturezaNF);
+                                    $stmt->bindParam(4, $numeroNF);
+                                    $stmt->bindParam(5, $datahoraNF);
+                                    $stmt->bindParam(6, $tipoNF);
+                                    $stmt->bindParam(7, $nomeEmit);
+                                    $stmt->bindParam(8, $nomeDest);
+                                    $stmt->bindParam(9, $nomeProd);
+                                    $stmt->bindParam(10, $content);
 
-                                try {
-                                    if ($stmt->execute()) {
-                                        $notas_sucesso++;
+                                    try {
+                                        if ($stmt->execute()) {
+                                            $notas_sucesso++;
+                                            unlink($content);
+                                        }
+                                    } catch (PDOException $err) {
+                                        $notas_erro++;
+                                        echo '<p><b>Alerta:</b> Upload da NF-e <b><i>' . $novo_nome . '</i></b> não realizado! O arquivo é inválido ou já foi cadastrado.</p>';
                                         unlink($content);
+                                    } catch (Exception $err) {
+                                        echo "Erro ao realizar Upload!";
                                     }
-                                } catch (PDOException $err) {
-                                    $notas_erro++;
-                                    echo '<p><b>Alerta:</b> Upload da nota <b><i>' . $novo_nome . '</i></b> não realizado! NF-e já cadastrada.</p>';
-                                    unlink($content);
-                                } catch (Exception $err) {
-                                    echo "Erro ao realizar Upload!";
                                 }
                             }
                             echo "<p style='color: blue;'><b>Quantidade total de NF-e selecionadas: " . $total . "</b></p>";
-                            echo "<p style='color: green;'><b>Quantidade de NF-e enviadas com sucesso: " . $notas_sucesso . "</b></p>";
-                            echo "<p style='color: red;'><b>Quantidade de NF-e não enviadas: " . $notas_erro . "</b></p>";
+                            if ($notas_sucesso > 0) {
+                                echo "<p style='color: green;'><b>Quantidade de NF-e enviadas com sucesso: " . $notas_sucesso . "</b></p>";
+                            }
+                            if ($notas_erro > 0) {
+                                echo "<p style='color: red;'><b>Quantidade de NF-e não enviadas: " . $notas_erro . "</b></p>";
+                            }
+                            if ($cont_erro > 0) {
+                                echo "<p style='color: gray;'><b>Quantidade de arquivos XML vazios: " . $cont_erro . "</b></p>";
+                            }
                         } else {
                             echo '<b>Observação: Nenhum arquivo selecionado! É necessário selecionar um ou mais arquivos XML para que seja realizado o upload.</b>';
                         }

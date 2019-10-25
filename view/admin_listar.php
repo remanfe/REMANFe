@@ -106,7 +106,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 <span><b>Celular</b></span>			
                             </th>
                             <th class="col-md-3">
-                                <span><b>Ações</b></span>
+                                <span><b>Opções</b></span>
                             </th>
                         </tr>
                         <?php
