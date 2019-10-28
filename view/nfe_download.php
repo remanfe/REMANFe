@@ -193,32 +193,15 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         if (isset($_POST['listar'])) {
                             include_once('../controller/conexao.php');
 
-//                            $conn = conexao();
-//                            
-//                            try {
-//                                if ($_SESSION['tipo_usuario'] == 1) {
-//                                    $stmt = $conn->prepare("select * from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
-//                                            . " and cnpj_empresa = '" . $_POST['empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
-//                                            . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
-//                                } else if ($_SESSION['tipo_usuario'] == 2) {
-//                                    $stmt = $conn->prepare("select * from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
-//                                            . " and cnpj_empresa = '" . $_SESSION['cnpj_empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
-//                                            . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
-//                                }
-//
-//                                $stmt->execute();
-//                            } catch (PDOException $ex) {
-//                                echo 'Erro: ' . $ex->getMessage();
-//                            }
                             $conn = conexao();
                             if ($_SESSION['tipo_usuario'] == 1) {
                                 $stmt = $conn->prepare("select * from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
-                                            . " and cnpj_empresa = '" . $_POST['empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
-                                            . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
+                                        . " and cnpj_empresa = '" . $_POST['empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
+                                        . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
                             } else if ($_SESSION['tipo_usuario'] == 2) {
                                 $stmt = $conn->prepare("select * from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
-                                            . " and cnpj_empresa = '" . $_SESSION['cnpj_empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
-                                            . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
+                                        . " and cnpj_empresa = '" . $_SESSION['cnpj_empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
+                                        . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
                             }
                             $stmt->execute();
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -246,6 +229,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     echo "</td>";
                                     echo "<td class='col-md-1'>";
                                     echo "	<a href='?acao=excluir&codigo=" . $retorno[$i]['cnf_nfe'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
+                                    echo "	<a href='pdf.php?acao=gerar&codigo=" . $retorno[$i]['cnf_nfe'] . "' target='_blank'><img src='../components/images/icons/save16.png' alt='Gerar DANFe' title='Gerar DANFe' class='img-espaco'></a>";
                                     echo "</td>";
                                     echo "</tr>";
                                 }
@@ -261,6 +245,10 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             if ($_SESSION['tipo_usuario'] == 1) {
                                 $stmt = $conn->prepare("select cnf_nfe from nfe where dhemi_nfe between '" . $_POST['dataini'] . "' and '" . $_POST['datafim']
                                         . "' and cnpj_empresa = '" . $_POST['empresa'] . "'");
+
+                                $stmt = $conn->prepare("select cnf_nfe from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
+                                        . " and cnpj_empresa = '" . $_POST['empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
+                                        . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe;");
                             } else if ($_SESSION['tipo_usuario'] == 2) {
                                 $stmt = $conn->prepare("select cnf_nfe from nfe where dhemi_nfe between '" . $_POST['dataini'] . "' and '" . $_POST['datafim']
                                         . "' and cnpj_empresa = '" . $_SESSION['cnpj_empresa'] . "'");
@@ -275,7 +263,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             }
 
                             echo "<p style='color: green;'><b>Todas as NF-e com data de emissão no período especificado foram salvas com sucesso!</b></p>"
-                            . "<p style='color: green;'><b>Estão disponíveis no seu computador no caminho: <i>C:/REMANFe/notas</i></b></p>";
+                            . "<p style='color: green;'><b>Estão disponíveis no seu computador no caminho: <i>C:/REMANFe/notas/" . date('Y-m-d') . "_" . date('h-i-s') . "</i></b></p>";
                         }
                         ?>
                     </table>

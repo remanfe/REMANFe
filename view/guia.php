@@ -49,53 +49,74 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <link rel="stylesheet" href="../components/css/style.css">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
-        <?php
-        include_once './header.php';
+        <div class="wrapper">
+            <?php
+            include_once './header.php';
 
-        if ($_SESSION['tipo_usuario'] == 0) {
-            include_once('menu/menu_admin.php');
-        } else if ($_SESSION['tipo_usuario'] == 1) {
-            include_once('menu/menu_contador.php');
-        } else if ($_SESSION['tipo_usuario'] == 2) {
-            include_once('menu/menu_empresa.php');
-        }
-        ?>
+            if ($_SESSION['tipo_usuario'] == 0) {
+                include_once('menu/menu_admin.php');
+            } else if ($_SESSION['tipo_usuario'] == 1) {
+                include_once('menu/menu_contador.php');
+            } else if ($_SESSION['tipo_usuario'] == 2) {
+                include_once('menu/menu_empresa.php');
+            }
+            ?>
 
-        <!-- Content Wrapper. Contém o conteúdo da página -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    Guia de Utilização
-                    <small>REMANFe</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
-                    <li class="active">Guia</li>
-                </ol>
-            </section>
-            <section class="content-header">
-                <p>
-                    Bem-vindo ao Repositório para Manipulação de Arquivos NF-e.
-                </p>
-                <p>
-                    Este é um guia de orientação à utilização do sistema.
-                </p>
-                <hr> <!-- separador-->
-                <h4>Página CADASTRAR e LISTAR > Empresa</h4>
-                <img src="../components/images/img1.png" class="img_guia">
-                <p>
-                    Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
-                    As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
-                </p>
-                <li>O botão <b>BUSCAR</b> realiza a listagem e a pesquisa por nome.</li>
-                <li>O botão <b>CADASTRAR EMPRESA</b> redireciona para a página de cadastro de empresa.</li>
+            <!-- Content Wrapper. Contém o conteúdo da página -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Guia de Utilização
+                        <small>REMANFe</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
+                        <li class="active">Guia</li>
+                    </ol>
+                    <br>
+                    <p>
+                        Bem-vindo ao Repositório para Manipulação de Arquivos NF-e.
+                    </p>
+                    <p>
+                        Este é um guia de orientação à utilização do sistema.
+                    </p>
+                    <hr>
+                    <h4>Página CADASTRAR e LISTAR > Empresa</h4>
+                    <img src="../components/images/img1.png" class="img_guia">
+                    <p>
+                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
+                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                    </p>
+                    <li>O botão <b>BUSCAR</b> realiza a listagem e a pesquisa por nome.</li>
+                    <li>O botão <b>CADASTRAR EMPRESA</b> redireciona para a página de cadastro de empresa.</li>
 
-            </section>
+                    <hr>
+
+                    <p>
+                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
+                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                    </p>
+
+                    <p>
+                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
+                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                    </p>
+
+                    <p>
+                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
+                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                    </p>
+
+                    <p>
+                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
+                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                    </p>
+                </section>
+            </div>
+            <?php
+            include_once './footer.php';
+            ?>
         </div>
-        <?php
-        include_once './footer.php';
-        ?>
-    </div>
-</body>
+    </body>
 </html>

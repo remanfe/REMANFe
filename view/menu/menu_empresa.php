@@ -18,7 +18,7 @@
                 </ul>
             </li>
             <li>
-                <a href="">
+                <a href="danfe_gerar.php">
                     <i class="fa fa-print"></i><span>GERAR DANFe</span>
                 </a>
             </li>

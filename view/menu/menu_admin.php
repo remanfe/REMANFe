@@ -17,22 +17,6 @@
                     <li><a href="../view/contador_listar.php"><i class="fa fa-circle-o"></i>Contador</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="">
-                    <i class="fa fa-edit"></i><span>NF-e (Nota Fiscal Eletrônica)</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">
-                    <i class="fa fa-print"></i><span>GERAR DANFe</span>
-                </a>
-            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -72,90 +72,84 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
                         <li class="active">Gerar DANFe</li>
                     </ol>
-                </section>
-                <section class="content-header">
-                    <form action="nfe_listar.php" method="POST" autocomplete="off">
+                    <br>
+<!--                <section class="content-header">
+                    <form action="pdf.php" method="POST" autocomplete="off">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-5">
-                                    <label>Código NFe:</label>
-                                    <input type="text" id="nome" name="codigoNFe" class="form-control" placeholder="Digite o nome" />
-                                </div>
-                                <div class="col-md-2 button-listar">
-                                    <input type="submit" value="Buscar" class="btn btn-bitbucket form-control" />
-                                </div>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3 button-cadastrar">
-                                    <a href="pdf.php"><input type="button" value="GERAR DANFe" class="btn btn-success form-control" /></a>
+                                    <a href="pdf.php" target="_blank"><input type="submit" name="pdf" value="GERAR DANFe" class="btn btn-success form-control" /></a>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <table class="table table-hover table-striped">
-                        <tr class="row">
-                            <th class="col-md-3">
-                                <span><b>Nome</b></span>			
-                            </th>	
-                            <th class="col-md-2">
-                                <span><b>CNPJ</b></span>			
-                            </th>
-                            <th class="col-md-3">
-                                <span><b>E-mail</b></span>			
-                            </th>
-                            <th class="col-md-2">
-                                <span><b>Telefone</b></span>			
-                            </th>
-                            <th class="col-md-3">
-                                <span><b>Ações</b></span>
-                            </th>
-                        </tr>
-                        <?php
-                        if (isset($_POST['codigoNFe'])) {
-                            include_once('../controller/conexao.php');
+                </section>-->
 
-                            $conn = conexao();
-                            $stmt = $conn->prepare("select * from nfe where cNF_nfe LIKE '%" . $_POST['codigoNFe'] . "%' ORDER BY cNF_nfe;");
-                            $stmt->execute();
-
-                            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                            for ($i = 0; $i < count($retorno); $i++) {
-                                echo "<tr class='row'>";
-                                echo "	<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['nNF_nfe'] . "</span>";
-                                echo "	</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['cnpj_empresa_nfe'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['cNF_nfe'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['dhEmi_nfe'] . "</span>";
-                                echo "</td>";
-                                echo "</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['tp_nfe'] . "</span>";
-                                echo "</td>";
-                                echo "</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['natOp_nfe'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "	<a href='?acao=gerar&codigoNFe=" . $retorno[$i]['cNF_nfe'] . "'><img src='../components/images/icons/delete16.png' alt='Gerar' title='Gerar' class='img-espaco'></a>";
-                                echo "</td>";
-                                echo "</tr>";
-                            }
-                        }
+                    <?php
+                    include_once '../controller/nfeCTL.php';
+                    if ($_SESSION['tipo_usuario'] == 1) {
+                        $empresa_cont = buscarCNPJempresaContadorNFe($_SESSION['cnpj_cont']);
                         ?>
-                    </table>
-                    <strong>
+                        <form action="pdf.php" target="_blank" method="POST" autocomplete="off">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Empresa:</label>
+                                        <select id="empresa" class="form-control" name="empresa" required="true">
+                                            <option selected value="">Selecione...</option>
+                                            <?php
+                                            for ($i = 0; $i < count($empresa_cont); $i++) {
+                                                echo"<option value='" . $empresa_cont[$i]['cnpj_empresa'] . "'>" . $empresa_cont[$i]['nome_empresa'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Data de Início:</label>
+                                        <input type="date" class="form-control" id="dataini" name="dataini" required="true" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Data Final:</label>
+                                        <input type="date" class="form-control" id="datafim" name="datafim" required="true" />
+                                    </div>
+                                    <div class="col-md-2 button-listar">
+                                        <a target="_blank"><input type="submit" value="Gerar DANFe" name="gerartodasCont" class="btn btn-success form-control" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         <?php
-                        if (isset($_REQUEST['mensagem'])) {
-                            echo " " . $_REQUEST['mensagem'];
-                        }
+                    } else if ($_SESSION['tipo_usuario'] == 2) {
                         ?>
-                    </strong>
+                        <form action="pdf.php" target="_blank" method="POST" autocomplete="off">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nome do destinatário da NF-e:</label>
+                                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do destinatário da NF-e" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Data de Início:</label>
+                                        <input type="date" class="form-control" id="dataini" name="dataini" required="true" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Data Final:</label>
+                                        <input type="date" class="form-control" id="datafim" name="datafim" required="true" />
+                                    </div>
+                                    <div class="col-md-2 button-listar">
+                                        <a target="_blank"><input type="submit" value="Gerar DANFe" name="gerartodasEmpresa" class="btn btn-success form-control" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <?php
+                    }
+                    ?>
                 </section>
             </div>
             <?php
@@ -164,12 +158,3 @@ if ($_SESSION['tipo_usuario'] == 0) {
         </div>
     </body>
 </html>
-<?php
-include_once ('../controller/danfeCTL.php');
-if (isset($_REQUEST['acao'])) {
-    if ($_REQUEST['acao'] == "gerar") {
-        excluirEmpresa($_REQUEST['cNF_nfe']);
-        echo "<script language='javascript'> alert('DANFe Gerada com Sucesso!')</script>";
-    }
-}
-?>
