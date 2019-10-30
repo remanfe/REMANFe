@@ -45,6 +45,74 @@ if ($_SESSION['tipo_usuario'] == 0) {
         <script type="text/javascript" src="../components/js/jquery/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="../components/js/jquery.mask.js"></script>
         <script type="text/javascript" src="../components/js/scriptjs.js"></script>
+<!--        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>-->
+        <!-- Webservice CEP -->
+        <script type="text/javascript" >
+
+            $(document).ready(function () {
+
+                function limpa_formulário_cep() {
+                    // Limpa valores do formulário de cep.
+                    $("#logradouro").val("");
+                    $("#bairro").val("");
+                    $("#cidade").val("");
+                    $("#estado").val("");
+                }
+
+                //Quando o campo cep perde o foco.
+                $("#cep").blur(function () {
+
+                    //Nova variável "cep" somente com dígitos.
+                    var cep = $(this).val().replace(/\D/g, '');
+
+                    //Verifica se campo cep possui valor informado.
+                    if (cep != "") {
+
+                        //Expressão regular para validar o CEP.
+                        var validacep = /^[0-9]{8}$/;
+
+                        //Valida o formato do CEP.
+                        if (validacep.test(cep)) {
+
+                            //Preenche os campos com "..." enquanto consulta webservice.
+                            $("#logradouro").val("...");
+                            $("#bairro").val("...");
+                            $("#cidade").val("...");
+                            $("#estado").val("...");
+
+                            //Consulta o webservice viacep.com.br/
+                            $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                                if (!("erro" in dados)) {
+                                    //Atualiza os campos com os valores da consulta.
+                                    $("#logradouro").val(dados.logradouro);
+                                    $("#bairro").val(dados.bairro);
+                                    $("#cidade").val(dados.localidade);
+                                    $("#estado").val(dados.uf);
+                                } //end if.
+                                else {
+                                    //CEP pesquisado não foi encontrado.
+                                    limpa_formulário_cep();
+                                    alert("CEP não encontrado.");
+                                }
+                            });
+                        } //end if.
+                        else {
+                            //cep é inválido.
+                            limpa_formulário_cep();
+                            alert("Formato de CEP inválido.");
+                        }
+                    } //end if.
+                    else {
+                        //cep sem valor, limpa formulário.
+                        limpa_formulário_cep();
+                    }
+                });
+            });
+
+        </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -70,7 +138,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
-                            <li class="active">Cadastro Contador</li>
+                        <li class="active">Cadastro Contador</li>
                     </ol>
                 </section>
 
@@ -141,8 +209,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </div>
                                     <div class = "col-md-3">
                                         <label>Logradouro:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['logradouro_cont'] ?>"
-                                               name = "logradouro" placeholder = "Digite a Rua ou Avenida" required = "true" minlength = "5" maxlength = "100" />
+                                        <input type = "text" id="logradouro" class = "form-control" value = "<?php echo $contador[0]['logradouro_cont'] ?>"
+                                               name = "logradouro" placeholder = "Rua ou Avenida" required = "true" minlength = "5" maxlength = "100" readonly="true"/>
                                     </div>
                                     <div class = "col-md-3">
                                         <label>Complemento:</label>
@@ -156,18 +224,18 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Bairro:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['bairro_logradouro_cont'] ?>"
-                                               name = "bairro" placeholder = "Digite o bairro" required = "true" minlength = "5" maxlength = "50" />
+                                        <input type = "text" id="bairro" class = "form-control" value = "<?php echo $contador[0]['bairro_logradouro_cont'] ?>"
+                                               name = "bairro" placeholder = "Bairro" required = "true" minlength = "5" maxlength = "50" readonly="true"/>
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Cidade:</label>
-                                        <input type = "text" class = "form-control" value = "<?php echo $contador[0]['cidade_logradouro_cont'] ?>"
-                                               name = "cidade" placeholder = "Digite a cidade" required = "true" minlength = "5" maxlength = "50" />
+                                        <input type = "text" id="cidade" class = "form-control" value = "<?php echo $contador[0]['cidade_logradouro_cont'] ?>"
+                                               name = "cidade" placeholder = "Cidade" required = "true" minlength = "5" maxlength = "50" readonly="true"/>
                                     </div>
                                     <div class = "col-md-1">
                                         <label>Estado:</label>
                                         <input type = "text" class = "form-control" value = "<?php echo $contador[0]['uf_logradouro_cont'] ?>"
-                                               name = "estado" id = "estado" placeholder = "UF" required = "true" minlength = "2" maxlength = "2" pattern = "[a-zA-Z\s]+$" />
+                                               name = "estado" id = "estado" placeholder = "UF" required = "true" minlength = "2" maxlength = "2" pattern = "[a-zA-Z\s]+$" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class = "row">
@@ -264,8 +332,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </div>
                                     <div class = "col-md-3">
                                         <label>Logradouro:</label>
-                                        <input type = "text" class = "form-control"
-                                               name = "logradouro" placeholder = "Digite a Rua ou Avenida" required = "true" minlength = "5" maxlength = "100" />
+                                        <input type = "text" id="logradouro" class = "form-control"
+                                               name = "logradouro" placeholder = "Rua ou Avenida" required = "true" minlength = "5" maxlength = "100" readonly="true"/>
                                     </div>
                                     <div class = "col-md-3">
                                         <label>Complemento:</label>
@@ -279,18 +347,18 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Bairro:</label>
-                                        <input type = "text" class = "form-control"
-                                               name = "bairro" placeholder = "Digite o bairro" required = "true" minlength = "5" maxlength = "50" />
+                                        <input type = "text" id="bairro" class = "form-control"
+                                               name = "bairro" placeholder = "Bairro" required = "true" minlength = "5" maxlength = "50" readonly="true"/>
                                     </div>
                                     <div class = "col-md-2">
                                         <label>Cidade:</label>
-                                        <input type = "text" class = "form-control"
-                                               name = "cidade" placeholder = "Digite a cidade" required = "true" minlength = "5" maxlength = "50" />
+                                        <input type = "text" id="cidade" class = "form-control"
+                                               name = "cidade" placeholder = "Cidade" required = "true" minlength = "5" maxlength = "50" readonly="true"/>
                                     </div>
                                     <div class = "col-md-1">
                                         <label>Estado:</label>
                                         <input type = "text" class = "form-control"
-                                               name = "estado" id = "estado" placeholder = "UF" required = "true" minlength = "2" maxlength = "2" pattern = "[a-zA-Z\s]+$" />
+                                               name = "estado" id = "estado" placeholder = "UF" required = "true" minlength = "2" maxlength = "2" pattern = "[a-zA-Z\s]+$" readonly="true"/>
                                     </div>
                                 </div>
                                 <div class = "row">
@@ -312,9 +380,9 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <div class="col-md-2 button-cadastrar-limpar">
                                         <input type="reset" value="Limpar" class="btn btn-linkedin form-control">
                                     </div>
-                                <div class = "col-md-2 button-cadastrar-limpar">
-                                    <a href = "contador_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-dropbox form-control"></a>
-                                </div>
+                                    <div class = "col-md-2 button-cadastrar-limpar">
+                                        <a href = "contador_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-dropbox form-control"></a>
+                                    </div>
                                 </div>
                                 <h1>
                                     <?php

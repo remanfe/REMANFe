@@ -7,7 +7,7 @@ if (isset($_REQUEST['acao'])) {
 
         $pdf = new FPDF();
         $pdf->AddPage();
-        $pdf->SetTitle('Exemplo exibição DANFe');
+        $pdf->SetTitle('Protótipo DANFe');
 
 //Set font and colors
         $pdf->SetFont('Courier', 'B', 10);
@@ -18,7 +18,7 @@ if (isset($_REQUEST['acao'])) {
         $pdf->SetXY(5, 5);
 
 //Table header
-        $pdf->MultiCell(0, 7, 'DANFE', 0, 1, 'C', 1);
+        $pdf->MultiCell(0, 7, 'Protótipo DANFe', 0, 1, 'C', 1);
         $pdf->SetFont('Courier', '', 9);
         $pdf->MultiCell(0, 7, 'DOCUMENTO AUXILIAR DA NOTA FISCAL ELETRÔNICA', 0, 1, 'L', 1);
         $pdf->Ln(1);
@@ -120,7 +120,7 @@ if (isset($_POST['gerartodasEmpresa'])) {
     require('../components/fpdf/fpdf.php');
 
     $pdf = new FPDF();
-    $pdf->SetTitle('Exemplo exibição DANFe');
+    $pdf->SetTitle('Protótipo DANFe');
 
 //Set font and colors
     $pdf->SetFont('Courier', 'B', 10);
@@ -156,7 +156,7 @@ if (isset($_POST['gerartodasEmpresa'])) {
             $pdf->AddPage();
             //Table header
             $pdf->SetFont('Courier', 'B', 10);
-            $pdf->MultiCell(0, 7, 'DANFE', 0, 1, 'C', 1);
+            $pdf->MultiCell(0, 7, 'Protótipo DANFe', 0, 1, 'C', 1);
             $pdf->SetFont('Courier', '', 9);
             $pdf->MultiCell(0, 7, 'DOCUMENTO AUXILIAR DA NOTA FISCAL ELETRÔNICA', 0, 1, 'L', 1);
             $pdf->Ln(1);
@@ -240,7 +240,7 @@ if (isset($_POST['gerartodasEmpresa'])) {
     require('../components/fpdf/fpdf.php');
 
     $pdf = new FPDF();
-    $pdf->SetTitle('Exemplo exibição DANFe');
+    $pdf->SetTitle('Protótipo DANFe');
 
 //Set font and colors
     $pdf->SetFont('Courier', 'B', 10);
@@ -275,7 +275,7 @@ if (isset($_POST['gerartodasEmpresa'])) {
             $pdf->AddPage();
             //Table header
             $pdf->SetFont('Courier', 'B', 10);
-            $pdf->MultiCell(0, 7, 'DANFE', 0, 1, 'C', 1);
+            $pdf->MultiCell(0, 7, 'Protótipo DANFe', 0, 1, 'C', 1);
             $pdf->SetFont('Courier', '', 9);
             $pdf->MultiCell(0, 7, 'DOCUMENTO AUXILIAR DA NOTA FISCAL ELETRÔNICA', 0, 1, 'L', 1);
             $pdf->Ln(1);

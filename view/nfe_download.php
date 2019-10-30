@@ -19,7 +19,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>REMANFe | Listar NFe</title>
+        <title>REMANFe | Listar NF-e</title>
         <link rel="shortcut icon" href="../components/images/favicon.png">
         <!-- Diga ao navegador para responder à largura da tela -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -238,7 +238,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             }
                         } else if (isset($_POST['download'])) {
                             include_once('../controller/conexao.php');
-
+                            
+                            // cria pasta no próprio computador para que sejam armazenadas as NF-e após download
                             mkdir('C:/REMANFe/notas/' . date('Y-m-d') . "_" . date('h-i-s'), 0755, true);
 
                             $conn = conexao();
@@ -257,6 +258,8 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             for ($i = 0; $i < count($retorno); $i++) {
+                                
+                                // comando do próprio BD para gravar as notas na pasta criada no computador
                                 $stmt2 = $conn->prepare("copy (select arq_nfe from nfe where cnf_nfe = " . $retorno[$i]['cnf_nfe'] . ") "
                                         . "to 'C:/REMANFe/notas/" . date('Y-m-d') . "_" . date('h-i-s') . "/" . $retorno[$i]['cnf_nfe'] . ".xml'");
                                 $stmt2->execute();

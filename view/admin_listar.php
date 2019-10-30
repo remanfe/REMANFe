@@ -161,8 +161,12 @@ if ($_SESSION['tipo_usuario'] == 0) {
 include_once ('../controller/adminCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
+        try {
         excluirAdmin($_REQUEST['cpf']);
-        echo "<script language='javascript'> alert('Administrador excluído com sucesso!')</script>";
+            echo "<script language='javascript'> alert('Administrador excluído com sucesso!')</script>";
+        } catch (PDOException $ex) {
+            echo "<script language='javascript'> alert('Não foi possível excluir o Administrador! Este está vinculado à algum contador.')</script>";
+        }
     } else if ($_REQUEST['acao'] == "atualizar") {
         echo "<script>document.location.href='admin_cadastrar.php?cpf=" . $_REQUEST['cpf'] . "'</script>";
     }
