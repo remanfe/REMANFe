@@ -14,6 +14,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="nfe_upload.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
+                    <li><a href="nfe_listar.php"><i class="fa fa-list"></i>LISTAR NF-e</a></li>
                     <li><a href="nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                 </ul>
             </li>

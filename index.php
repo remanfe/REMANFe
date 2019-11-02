@@ -167,6 +167,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
+                                    <li><a href="view/nfe_listar.php"><i class="fa fa-download"></i>LISTAR NF-e</a></li>
                                     <li><a href="view/nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                                 </ul>
                             </li>
@@ -204,6 +205,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="view/nfe_upload.php"><i class="fa fa-upload"></i>UPLOAD NF-e</a></li>
+                                    <li><a href="view/nfe_listar.php"><i class="fa fa-list"></i>LISTAR NF-e</a></li>
                                     <li><a href="view/nfe_download.php"><i class="fa fa-download"></i>DOWNLOAD NF-e</a></li>
                                 </ul>
                             </li>

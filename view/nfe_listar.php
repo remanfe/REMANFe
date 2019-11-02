@@ -19,7 +19,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>REMANFe | Download NF-e</title>
+        <title>REMANFe | Listar NF-e</title>
         <link rel="shortcut icon" href="../components/images/favicon.png">
         <!-- Diga ao navegador para responder à largura da tela -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -65,12 +65,12 @@ if ($_SESSION['tipo_usuario'] == 0) {
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Download
+                        Listar
                         <small>NF-e</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
-                        <li class="active">Download NF-e</li>
+                        <li class="active">Listar NF-e</li>
                     </ol>
                     <?php
                     include_once '../controller/nfeCTL.php';
@@ -79,11 +79,11 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         ?>
                         <br>
                         <h5>
-                            Para realizar o download de NF-e, escolha a empresa, especifique o período de emissão das NF-e que deseja baixar e  
-                            clique em "Download" e para baixá-las.
+                            Para listar as NF-e, escolha a empresa, especifique o período de emissão das NF-e que deseja listar e  
+                            clique em "Buscar" e para listá-las.
                         </h5>
                         <br>
-                        <form action="download_all.php" method="POST" autocomplete="off">
+                        <form action="nfe_listar.php" method="POST" autocomplete="off">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -112,39 +112,53 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                         <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do destinatário da NF-e" />
                                     </div>
                                     <div class="col-md-2 button-listar">
-                                        <input type="submit" value="Download" id="download" name="download" class="btn btn-success form-control" />
+                                        <input type="submit" value="Buscar" name="listar" class="btn btn-bitbucket form-control" />
                                     </div>
+                                    <?php
+                                    if ($_SESSION['tipo_usuario'] == 2) {
+                                        ?>
+                                        <div class="col-md-3 button-cadastrar">
+                                            <a href="nfe_upload.php"><input type="button" value="Upload NF-e" class="btn btn-success form-control" /></a>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </form>
                         <?php
                     } else if ($_SESSION['tipo_usuario'] == 2) {
                         ?>
-                        <br>
-                        <h5>
-                            Para realizar o download de NF-e, especifique o período de emissão das NF-e que deseja baixar e  
-                            clique em "Download" e para baixá-las.
-                        </h5>
-                        <br>
-                        <form action="download_all.php" method="POST" autocomplete="off">
+                        <form action="nfe_listar.php" method="POST" autocomplete="off">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Nome do destinatário da NF-e:</label>
                                         <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do destinatário da NF-e" />
                                     </div>
+                                    <div class="col-md-2 button-listar">
+                                        <input type="submit" value="Buscar" name="listar" class="btn btn-bitbucket form-control" />
+                                    </div>
+                                    <?php
+                                    if ($_SESSION['tipo_usuario'] == 2) {
+                                        ?>
+                                        <div class="col-md-3 button-cadastrar">
+                                            <a href="nfe_upload.php"><input type="button" value="Upload NF-e" class="btn btn-dropbox form-control" /></a>
+                                        </div>
+                                        <?php
+                                    } else {
+                                        
+                                    }
+                                    ?>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label>Data de Início:</label>
                                         <input type="date" class="form-control" id="dataini" name="dataini" required="true" />
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label>Data Final:</label>
                                         <input type="date" class="form-control" id="datafim" name="datafim" required="true" />
-                                    </div>
-                                    <div class="col-md-2 button-listar">
-                                        <input type="submit" value="Download" id="download" name="download" class="btn btn-success form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -152,13 +166,79 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <?php
                     }
                     ?>
-                    <strong style="color: blue;">
+
+                    <table class="table table-hover table-striped">
+                        <tr class="row">
+                            <th class="col-md-2">
+                                <span><b>Código NF-e</b></span>			
+                            </th>	
+                            <th class="col-md-1">
+                                <span><b>Data emissão</b></span>			
+                            </th>
+                            <th class="col-md-3">
+                                <span><b>Nome do emissor</b></span>			
+                            </th>
+                            <th class="col-md-2">
+                                <span><b>Nome do destinatário</b></span>			
+                            </th>
+                            <th class="col-md-3">
+                                <span><b>Nome do produto</b></span>
+                            </th>
+                            <th class="col-md-1">
+                                <span><b>Opções</b></span>
+                            </th>
+                        </tr>
                         <?php
-                        if (isset($_REQUEST['mensagem'])) {
-                            echo " " . $_REQUEST['mensagem'];
+                        if (isset($_POST['listar'])) {
+                            include_once('../controller/conexao.php');
+
+                            $conn = conexao();
+                            if ($_SESSION['tipo_usuario'] == 1) {
+                                $stmt = $conn->prepare("select * from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
+                                        . " and cnpj_empresa = '" . $_POST['empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
+                                        . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe desc;");
+                            } else if ($_SESSION['tipo_usuario'] == 2) {
+                                $stmt = $conn->prepare("select * from nfe where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%'"
+                                        . " and cnpj_empresa = '" . $_SESSION['cnpj_empresa'] . "' and dhemi_nfe between '" . $_POST['dataini'] . "'"
+                                        . " and '" . $_POST['datafim'] . "' ORDER BY dhemi_nfe desc;");
+                            }
+                            $stmt->execute();
+                            $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            if (count($retorno) > 0) {
+
+                                for ($i = 0; $i < count($retorno); $i++) {
+                                    echo "<tr class='row'>";
+                                    echo "	<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['cnf_nfe'] . "</span>";
+                                    echo "	</td>";
+                                    echo "<td class='col-md-1'>";
+                                    echo "		<span>" . $retorno[$i]['dhemi_nfe'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['nome_emit_nfe'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['nome_dest_nfe'] . "</span>";
+                                    echo "</td>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['nome_prod_nfe'] . "</span>";
+                                    echo "</td>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-1'>";
+                                    echo "	<a href='pdf.php?acao=gerar&codigo=" . $retorno[$i]['cnf_nfe'] . "' target='_blank'><img src='../components/images/icons/save16.png' alt='Gerar DANFe' title='Gerar DANFe' class='img-espaco'></a>";
+                                    echo "	<a href='download.php?codigo=" . $retorno[$i]['cnf_nfe'] . "' target='_blank'><img src='../components/images/icons/download16.png' alt='Download' title='Download' class='img-espaco'></a>";
+                                    echo "	<a href='?acao=excluir&codigo=" . $retorno[$i]['cnf_nfe'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<h5><i>Nenhum registro encontrado para a filtragem realizada.</i></h5>";
+                            }
                         }
                         ?>
-                    </strong>
+                    </table>
                 </section>
             </div>
             <?php

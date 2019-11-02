@@ -139,7 +139,7 @@ if (isset($_POST['gerartodasEmpresa'])) {
     $consulta = pg_exec($conexao, "select cnf_nfe, cnpj_empresa, natop_nfe, nnf_nfe, dhemi_nfe, "
             . "tp_nfe, nome_emit_nfe, nome_dest_nfe, nome_prod_nfe from nfe "
             . "where nome_dest_nfe iLIKE '%" . $_POST['nome'] . "%' "
-            . "and dhemi_nfe between '" . $_POST['dataini'] . "' and '" . $_POST['datafim'] . "'");
+            . "and dhemi_nfe between '" . $_POST['dataini'] . "' and '" . $_POST['datafim'] . "' order by dhemi_nfe");
     $numregs = pg_numrows($consulta);
 
 //Build table
@@ -259,12 +259,13 @@ if (isset($_POST['gerartodasEmpresa'])) {
     $consulta = pg_exec($conexao, "select cnf_nfe, cnpj_empresa, natop_nfe, nnf_nfe, dhemi_nfe, "
             . "tp_nfe, nome_emit_nfe, nome_dest_nfe, nome_prod_nfe from nfe "
             . "where cnpj_empresa = '" . $_POST['empresa'] . "' "
-            . "and dhemi_nfe between '" . $_POST['dataini'] . "' and '" . $_POST['datafim'] . "'");
+            . "and dhemi_nfe between '" . $_POST['dataini'] . "' and '" . $_POST['datafim'] . "' order by dhemi_nfe");
     $numregs = pg_numrows($consulta);
 
 //Build table
     $fill = false;
     $i = 0;
+
     if ($numregs <= 0) {
         $pdf->AddPage();
         //Table header
@@ -352,8 +353,8 @@ if (isset($_POST['gerartodasEmpresa'])) {
 //    $pdf->SetFont('Arial', 'B', 8);
 //    $pdf->SetXY(25, 95);
 //    $pdf->Cell(200, 5, 'PDF gerado via PHP acessando banco de dados', 1, 1, 'C', 1);
-
-        $pdf->Output("DANFe_" . $_POST['empresa'] . ".pdf", "I");
     }
+
+    $pdf->Output("DANFe_" . $_POST['empresa'] . ".pdf", "I");
 }
 ?>
