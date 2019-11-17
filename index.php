@@ -80,7 +80,15 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 <ul class="dropdown-menu">
                                     <!-- Imagem do usuário -->
                                     <li class="user-header">
-                                        <img src="components/dist/img/avatar.png" class="img-circle" alt="Imagem de Perfil">
+                                        <?php
+                                        if ($_SESSION['tipo_usuario'] == 0) {
+                                            echo '<img src="components/dist/img/boss.png" class="img-circle" alt="Imagem de Perfil">';
+                                        } else if ($_SESSION['tipo_usuario'] == 1) {
+                                            echo '<img src="components/dist/img/network.png" class="img-circle" alt="Imagem de Perfil">';
+                                        } else if ($_SESSION['tipo_usuario'] == 2) {
+                                            echo '<img src="components/dist/img/network.png" class="img-circle" alt="Imagem de Perfil">';
+                                        }
+                                        ?>
                                         <p>
                                             <?php
                                             if ($_SESSION['tipo_usuario'] == 0) {
@@ -96,7 +104,15 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Dados cadastrais</a>
+                                            <?php
+                                            if ($_SESSION['tipo_usuario'] == 0) {
+                                                echo '<a href = "view/admin_perfil.php" class = "btn btn-default btn-flat">Dados cadastrais</a>';
+                                            } else if ($_SESSION['tipo_usuario'] == 1) {
+                                                echo '<a href = "view/contador_perfil.php" class = "btn btn-default btn-flat">Dados cadastrais</a>';
+                                            } else if ($_SESSION['tipo_usuario'] == 2) {
+                                                echo '<a href = "view/empresa_perfil.php" class = "btn btn-default btn-flat">Dados cadastrais</a>';
+                                            }
+                                            ?>
                                         </div>
                                         <div class="pull-right">
                                             <a href="controller/logout.php" class="btn btn-default btn-flat">Sair</a>

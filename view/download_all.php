@@ -27,7 +27,7 @@ if (isset($_POST['download'])) {
         $zip = new ZipArchive();
         $filename = 'NF-e_' . date('Y-m-d') . "_" . date('h-i-s') . '.zip';
         if ($zip->open($filename, ZipArchive::CREATE) !== true) {
-            exit("cannot open <$archive_file_name>\n");
+            exit("cannot open <$filename>\n");
         }
 
         $conn = 'dbname=dbREMANFe port=5432 user=postgres password=postdba';

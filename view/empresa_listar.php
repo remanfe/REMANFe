@@ -105,7 +105,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             <th class="col-md-2">
                                 <span><b>Telefone</b></span>			
                             </th>
-                            <th class="col-md-3">
+                            <th class="col-md-2">
                                 <span><b>Opções</b></span>
                             </th>
                         </tr>
@@ -114,30 +114,41 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             include_once('../controller/conexao.php');
 
                             $conn = conexao();
-                            $stmt = $conn->prepare("select * from empresa where nome_empresa iLIKE '%" . $_POST['nome'] . "%' ORDER BY nome_empresa;");
+                            $stmt = $conn->prepare("select * from empresa e, contador c, item_contador_empresa i "
+                                    . "where e.cnpj_empresa = i.cnpj_empresa and i.cnpj_cont = c.cnpj_cont and "
+                                    . "c.cnpj_cont = '" . $_SESSION['cnpj_cont'] . "' and "
+                                    . "e.nome_empresa iLIKE '%" . $_POST['nome'] . "%' ORDER BY e.nome_empresa;");
                             $stmt->execute();
 
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            for ($i = 0; $i < count($retorno); $i++) {
+                            if (count($retorno) == 0) {
                                 echo "<tr class='row'>";
-                                echo "	<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['nome_empresa'] . "</span>";
+                                echo "	<td>";
+                                echo "    <i>Nenhum registro encontrado.</i>";
                                 echo "	</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['cnpj_empresa'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['email_empresa'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['telefone_empresa'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_empresa'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
-                                echo "	<a href='?acao=excluir&cnpj=" . $retorno[$i]['cnpj_empresa'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
-                                echo "</td>";
                                 echo "</tr>";
+                            } else {
+                                for ($i = 0; $i < count($retorno); $i++) {
+                                    echo "<tr class='row'>";
+                                    echo "	<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['nome_empresa'] . "</span>";
+                                    echo "	</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['cnpj_empresa'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['email_empresa'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['telefone_empresa'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_empresa'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
+                                    echo "	<a href='?acao=excluir&cnpj=" . $retorno[$i]['cnpj_empresa'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
                             }
                         }
                         ?>
@@ -149,6 +160,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         }
                         ?>
                     </strong>
+                    <br>
                 </section>
             </div>
             <?php
@@ -162,15 +174,15 @@ include_once ('../controller/empresaCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
         try {
-            excluirEmpresa($_REQUEST['cnpj']);
-            echo "<script language='javascript'> alert('Empresa excluída com sucesso!')</script>";
+            if (excluirEmpresa($_REQUEST['cnpj']) == true) {
+                echo "<script language='javascript'> alert('Empresa excluída com sucesso!')</script>";
+            } else {
+                echo "<script language='javascript'> alert('Não foi possível excluir a Empresa! Esta possui NF-e cadastradas.')</script>";
+            }
         } catch (PDOException $ex) {
             echo "<script language='javascript'> alert('Não foi possível excluir a Empresa! Esta possui NF-e cadastradas.')</script>";
         }
-    } else {
-        echo "<script language='javascript'> alert('Não foi possível excluir a Empresa! Esta possui NF-e cadastradas.')</script>";
-    }
-    if ($_REQUEST['acao'] == "atualizar") {
+    } else if ($_REQUEST['acao'] == "atualizar") {
         echo "<script>document.location.href='empresa_cadastrar.php?cnpj=" . $_REQUEST['cnpj'] . "'</script>";
     }
 }

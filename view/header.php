@@ -57,7 +57,15 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Dados cadastrais</a>
+                                <?php
+                                if ($_SESSION['tipo_usuario'] == 0) {
+                                    echo '<a href = "admin_perfil.php" class = "btn btn-default btn-flat">Dados cadastrais</a>';
+                                } else if ($_SESSION['tipo_usuario'] == 1) {
+                                    echo '<a href = "contador_perfil.php" class = "btn btn-default btn-flat">Dados cadastrais</a>';
+                                } else if ($_SESSION['tipo_usuario'] == 2) {
+                                    echo '<a href = "empresa_perfil.php" class = "btn btn-default btn-flat">Dados cadastrais</a>';
+                                }
+                                ?>
                             </div>
                             <div class="pull-right">
                                 <a href="../controller/logout.php" class="btn btn-default btn-flat">Sair</a>

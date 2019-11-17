@@ -139,26 +139,14 @@ if ($_SESSION['tipo_usuario'] == 0) {
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="../index.php"><i class="fa fa-home"></i>Inicio</a></li>
-                        <?php
-                        include_once '../controller/adminCTL.php';
-                        if (isset($_REQUEST['cpf'])) {
-                            $admin = verificarCPF($_REQUEST['cpf']);
-                            ?>
-                            <li class="active">Atualizar Administrador</li>
-                            <?php
-                        } else {
-                            ?>
-                            <li class="active">Cadastrar Administrador</li>
-                            <?php
-                        }
-                        ?>
+                        <li class="active">Dados cadastrais</li>
                     </ol>
                 </section>
 
                 <?php
                 include_once '../controller/adminCTL.php';
-                if (isset($_REQUEST['cpf'])) {
-                    $admin = verificarCPF($_REQUEST['cpf']);
+                if (isset($_SESSION['cpf_admin'])) {
+                    $admin = verificarCPF($_SESSION['cpf_admin']);
                     ?>
                     <section class="content-header">
                         <form action="../controller/adminCTL.php" method="POST" autocomplete="off">
@@ -258,121 +246,12 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                 </div>
                                 <div class = "row">
                                     <div class = "col-md-2 button-cadastrar-limpar">
-                                        <input type = "submit" value = "Atualizar" name = "atualizar" class = "btn btn-tumblr form-control">
+                                        <input type = "submit" value = "Atualizar" name = "atualizar_perfil" class = "btn btn-tumblr form-control">
                                     </div>
                                     <div class = "col-md-2 button-cadastrar-limpar">
-                                        <a href = "admin_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-linkedin form-control"></a>
+                                        <a href = "../index.php"><input type = "button" value = "Cancelar" class = "btn btn-linkedin form-control"></a>
                                     </div>
                                 </div>
-                                <h1>
-                                    <?php
-                                    include_once ('../controller/adminCTL.php');
-                                    ?>
-                                </h1>
-                            </div>
-                        </form>
-
-                        <strong>
-                            <?php
-                            if (isset($_REQUEST['mensagem'])) {
-                                echo " " . $_REQUEST['mensagem'];
-                            }
-                            ?>
-                        </strong>
-                    </section>
-                    <?php
-                } else {
-                    ?>
-                    <section class="content-header">
-                        <form action="../controller/adminCTL.php" method="POST" autocomplete="off">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label>Nome:</label>
-                                        <input type="text" name="nome" class="form-control" placeholder="Digite o nome" required="true" minlength="10" maxlength="100" />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>CPF:</label>
-                                        <input type="text" id="cpf" name="cpf" class="form-control" placeholder="999.999.999-99" required="true" minlength="14" maxlength="14" />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>E-mail:</label>
-                                        <input type="email" id="email" name="email" class="form-control" placeholder="exemplo@email.com" required="true" minlength="12" maxlength="100" />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Status:</label>
-                                        <select id="cbStatus" name="status" class="form-control">
-                                            <option value="Ativo" >Ativo</option>
-                                            <option value="Inativo" >Inativo</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label>Celular:</label>
-                                        <input type="tel" id="celular" name="celular" class="form-control" placeholder="(99)99999-9999" required="true" minlength="14" maxlength="14" />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Celular comercial:</label>
-                                        <input type="tel" id="celular_com" name="celular_com" class="form-control" placeholder="(99)99999-9999" minlength="14" maxlength="14" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label>CEP:</label>
-                                        <input type="text" id="cep" name="cep" class="form-control" placeholder="99999-999" required="true" minlength="9" maxlength="9" />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>Logradouro:</label>
-                                        <input type="text" id="logradouro" name="logradouro" class="form-control" placeholder="Rua ou Avenida" required="true" minlength="5" maxlength="100" readonly="true"/>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>Complemento:</label>
-                                        <input type="text" name="complemento" class="form-control" placeholder="Digite o complemento" minlength="2" maxlength="50" />
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label>Número:</label>
-                                        <input type="text" id="numero" name="numero" class="form-control" placeholder="9999" required="true" minlength="2" maxlength="4" />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Bairro:</label>
-                                        <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Bairro" required="true" minlength="5" maxlength="50" readonly="true"/>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Cidade:</label>
-                                        <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Cidade" required="true" minlength="5" maxlength="50" readonly="true"/>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label>Estado:</label>
-                                        <input type="text" id="estado" name="estado" class="form-control" placeholder="UF" required="true" minlength="2" maxlength="2" pattern="[a-zA-Z\s]+$" readonly="true"/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label>Usuário:</label>
-                                        <input type="text" name="usuario" class="form-control" placeholder="Usuário para login" required="true" minlength="5" maxlength="50" />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label>Senha:</label>
-                                        <input type="password" name="senha" class="form-control" placeholder="Senha para login" required="true" minlength="8" maxlength="50" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2 button-cadastrar-limpar">
-                                        <input type="submit" value="Cadastrar" name="gravar" class="btn btn-success form-control" />
-                                    </div>
-                                    <div class="col-md-2 button-cadastrar-limpar">
-                                        <input type="reset" value="Limpar" class="btn btn-linkedin form-control">
-                                    </div>
-                                    <div class = "col-md-2 button-cadastrar-limpar">
-                                        <a href = "admin_listar.php"><input type = "button" value = "Cancelar" class = "btn btn-dropbox form-control"></a>
-                                    </div>
-                                </div>
-                                <h1>
-                                    <?php
-                                    include_once ('../controller/adminCTL.php');
-                                    ?>
-                                </h1>
                             </div>
                         </form>
 

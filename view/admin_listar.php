@@ -114,30 +114,39 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             include_once('../controller/conexao.php');
 
                             $conn = conexao();
-                            $stmt = $conn->prepare("select * from administrador where nome_admin iLIKE '%" . $_POST['nome'] . "%' ORDER BY nome_admin;");
+                            $stmt = $conn->prepare("select * from administrador where cpf_admin <> '" . $_SESSION['cpf_admin']
+                                    . "' and nome_admin iLIKE '%" . $_POST['nome'] . "%' ORDER BY nome_admin;");
                             $stmt->execute();
-
+                            
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            for ($i = 0; $i < count($retorno); $i++) {
+                            if (count($retorno) == 0) {
                                 echo "<tr class='row'>";
-                                echo "	<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['nome_admin'] . "</span>";
+                                echo "	<td>";
+                                echo "    <i>Nenhum registro encontrado.</i>";
                                 echo "	</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['cpf_admin'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['email_admin'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['celular_admin'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "	<a href='?acao=atualizar&cpf=" . $retorno[$i]['cpf_admin'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
-                                echo "	<a href='?acao=excluir&cpf=" . $retorno[$i]['cpf_admin'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
-                                echo "</td>";
                                 echo "</tr>";
+                            } else {
+                                for ($i = 0; $i < count($retorno); $i++) {
+                                    echo "<tr class='row'>";
+                                    echo "	<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['nome_admin'] . "</span>";
+                                    echo "	</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['cpf_admin'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['email_admin'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['celular_admin'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-3'>";
+                                    echo "	<a href='?acao=atualizar&cpf=" . $retorno[$i]['cpf_admin'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
+                                    echo "	<a href='?acao=excluir&cpf=" . $retorno[$i]['cpf_admin'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
                             }
                         }
                         ?>
@@ -149,6 +158,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         }
                         ?>
                     </strong>
+                    <br>
                 </section>
             </div>
             <?php
@@ -162,7 +172,7 @@ include_once ('../controller/adminCTL.php');
 if (isset($_REQUEST['acao'])) {
     if ($_REQUEST['acao'] == "excluir") {
         try {
-        excluirAdmin($_REQUEST['cpf']);
+            excluirAdmin($_REQUEST['cpf']);
             echo "<script language='javascript'> alert('Administrador excluído com sucesso!')</script>";
         } catch (PDOException $ex) {
             echo "<script language='javascript'> alert('Não foi possível excluir o Administrador! Este está vinculado à algum contador.')</script>";

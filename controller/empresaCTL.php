@@ -91,7 +91,7 @@ if (isset($_POST['gravar'])) {
 
     $cnpj = $_POST['cnpj'];
 
-    echo 'CNPJ: ' . $cnpj;
+//    echo 'CNPJ: ' . $cnpj;
 
     $nome = $_POST['nome'];
     $nomef = $_POST['nomef'];
@@ -145,6 +145,64 @@ if (isset($_POST['gravar'])) {
         $msg = 'Erro ao atualizar Empresa!';
         header('location: ../view/empresa_cadastrar.php?mensagem=' . $msg);
     }
+} else if (isset($_POST['atualizar_perfil'])) {
+    include '../controller/conexao.php';
+    include '../model/empresa.php';
+
+    $cnpj = $_POST['cnpj'];
+
+//    echo 'CNPJ: ' . $cnpj;
+
+    $nome = $_POST['nome'];
+    $nomef = $_POST['nomef'];
+    $crt = $_POST['crt'];
+    $cep = $_POST['cep'];
+    $logradouro = $_POST['logradouro'];
+    $complemento_logradouro = $_POST['complemento'];
+    $numero_logradouro = $_POST['numero'];
+    $bairro_logradouro = $_POST['bairro'];
+    $cidade_logradouro = $_POST['cidade'];
+    $estado_logradouro = $_POST['estado'];
+    $telefone = $_POST['telefone'];
+    $email = $_POST['email'];
+    $usuario_login = $_POST['usuario'];
+    $senha_login = $_POST['senha'];
+
+    $conn = conexao();
+    $sql = "UPDATE public.empresa
+	SET crt_empresa=?, nome_empresa=?, nome_fantasia_empresa=?,
+        cep_empresa=?, logradouro_empresa=?, complemento_logradouro_empresa=?, 
+        numero_logradouro_empresa=?, bairro_logradouro_empresa=?, cidade_logradouro_empresa=?, 
+        uf_logradouro_empresa=?, telefone_empresa=?, email_empresa=?, usuario_login_empresa=?, 
+        senha_login_empresa=? 
+	WHERE cnpj_empresa=?;";
+
+    header('location: ../view/contador_cadastrar.php?mensagem=' . $sql);
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $crt);
+    $stmt->bindParam(2, $nome);
+    $stmt->bindParam(3, $nomef);
+    $stmt->bindParam(4, $cep);
+    $stmt->bindParam(5, $logradouro);
+    $stmt->bindParam(6, $complemento_logradouro);
+    $stmt->bindParam(7, $numero_logradouro);
+    $stmt->bindParam(8, $bairro_logradouro);
+    $stmt->bindParam(9, $cidade_logradouro);
+    $stmt->bindParam(10, $estado_logradouro);
+    $stmt->bindParam(11, $telefone);
+    $stmt->bindParam(12, $email);
+    $stmt->bindParam(13, $usuario_login);
+    $stmt->bindParam(14, $senha_login);
+    $stmt->bindParam(15, $cnpj);
+
+    if ($stmt->execute()) {
+        $msg = 'Dados cadastrais atualizados com sucesso!';
+        header('location: ../view/empresa_perfil.php?mensagem=' . $msg);
+    } else {
+        $msg = 'Erro ao atualizar dados cadastrais!';
+        header('location: ../view/empresa_perfil.php?mensagem=' . $msg);
+    }
 }
 
 function verificarCNPJempresa($cnpj) {
@@ -161,13 +219,18 @@ function excluirEmpresa($cnpj) {
     include_once('../controller/conexao.php');
 
     $conn = conexao();
-    $stmt = $conn->prepare("delete from empresa where cnpj_empresa = '" . $cnpj . "';");
-    
+    $stmt = $conn->prepare("select * from empresa e, nfe n where e.cnpj_empresa = n.cnpj_empresa and e.cnpj_empresa = '" . $cnpj . "';");
     if ($stmt->execute()) {
-        $stmt2 = $conn->prepare("delete from item_contador_empresa where cnpj_empresa = '" . $cnpj . "';");
-        if ($stmt2->execute()) {
-            $stmt3 = $conn->prepare("delete from empresa where cnpj_empresa = '" . $cnpj . "';");
-            $stmt3->execute();
+        $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($retorno) == 0) {
+            $stmt2 = $conn->prepare("delete from item_contador_empresa where cnpj_empresa = '" . $cnpj . "';");
+            if ($stmt2->execute()) {
+                $stmt3 = $conn->prepare("delete from empresa where cnpj_empresa = '" . $cnpj . "';");
+                $stmt3->execute();
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <br>
                         <h5>
                             Para realizar o download de NF-e, escolha a empresa, especifique o período de emissão das NF-e que deseja baixar e  
-                            clique em "Download" e para baixá-las.
+                            clique em "Download" para baixá-las.
                         </h5>
                         <br>
                         <form action="download_all.php" method="POST" autocomplete="off">
@@ -152,13 +152,6 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <?php
                     }
                     ?>
-                    <strong style="color: blue;">
-                        <?php
-                        if (isset($_REQUEST['mensagem'])) {
-                            echo " " . $_REQUEST['mensagem'];
-                        }
-                        ?>
-                    </strong>
                 </section>
             </div>
             <?php

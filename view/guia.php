@@ -19,7 +19,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>REMANFe | Cadastro Administrador</title>
+        <title>REMANFe | Guia de Utilização</title>
         <link rel="shortcut icon" href="../components/images/favicon.png">
         <!-- Diga ao navegador para responder à largura da tela -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -81,37 +81,52 @@ if ($_SESSION['tipo_usuario'] == 0) {
                     <p>
                         Este é um guia de orientação à utilização do sistema.
                     </p>
-                    <hr>
-                    <h4>Página CADASTRAR e LISTAR > Empresa</h4>
-                    <img src="../components/images/img1.png" class="img_guia">
-                    <p>
-                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
-                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
-                    </p>
-                    <li>O botão <b>BUSCAR</b> realiza a listagem e a pesquisa por nome.</li>
-                    <li>O botão <b>CADASTRAR EMPRESA</b> redireciona para a página de cadastro de empresa.</li>
 
                     <hr>
 
+                    <h4>Página UPLOAD NF-e</h4>
+                    <img src="../components/images/guia1.png" class="img_guia">
                     <p>
-                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
-                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                        Essa página permite que as empresas cadastradas realizem o upload das NF-e para a base de dados do sistema. 
                     </p>
+                    <li>O botão <b>Escolher arquivos</b> deve ser utilizado para selecionar os arquivos XML das NF-e que estão no computador do usuário.</li>
+                    <li>O botão <b>Enviar</b> realiza as validações nos arquivos e armazena-os no banco de dados.</li>
 
-                    <p>
-                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
-                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
-                    </p>
+                    <hr>
 
+                    <h4>Página LISTAR NF-e</h4>
+                    <img src="../components/images/guia2.png" class="img_guia">
                     <p>
-                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
-                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                        Essa página permite que os contadores as empresas cadastradas listem em uma tabela as NF-e armazenadas na base de dados do sistema. 
                     </p>
+                    <li>O campo <b>Nome do destinatário da NF-e</b> pode ser preenchido para realizar uma busca específica entre as NF-e cadastradas no sistema.</li>
+                    <li>Os campos <b>Data de Início</b> e <b>Data Final</b> devem ser preenchidos com as respectivas datas de um período de tempo para que seja realizada a filtragem das NF-e com data de emissão entre o período especificado.</li>
+                    <li>O botão <b>Buscar</b> realiza a busca na base de dados de acordo com os dados preenchidos nos campos do formulário e apresenta as NF-e na tabela, com alguns dados específicos de cada arquivo, assim como, dispõe de algumas opções para cada NF-e (Gerar DANFe, Efetuar Download e Excluir NF-e).</li>
+                    <li>O botão <b>Upload NF-e</b> redireciona o usuário para a página de Upload de NF-e.</li>
 
+                    <hr>
+
+                    <h4>Página DOWNLOAD NF-e</h4>
+                    <img src="../components/images/guia3.png" class="img_guia">
                     <p>
-                        Nessa página é possível listar todas as Empresas cadastradas e realizar a busca por nome específico. 
-                        As Empresas são listadas na tabela e possuem botões de ações com funções de edição e exclusão.
+                        Essa página permite que as empresas cadastradas realizem o download das NF-e para a base de dados do sistema.
                     </p>
+                    <li>O campo <b>Nome do destinatário da NF-e</b> pode ser preenchido para realizar uma busca específica entre as NF-e cadastradas no sistema.</li>
+                    <li>Os campos <b>Data de Início</b> e <b>Data Final</b> devem ser preenchidos com as respectivas datas de um período de tempo para que seja realizada a filtragem das NF-e com data de emissão entre o período especificado.</li>
+                    <li>O botão <b>Download</b> é responsável por compactar as NF-e (filtradas com datas de emissão entre o prazo especificado) em um arquivo ZIP e realizar o download no navegador.</li>
+
+                    <hr>
+                    
+                    <h4>Página GERAR DANFe</h4>
+                    <img src="../components/images/guia4.png" class="img_guia">
+                    <p>
+                        Essa página permite que as empresas cadastradas gerem as DANFe das NF-e armazenadas na base de dados do sistema.
+                    </p>
+                    <li>O campo <b>Nome do destinatário da NF-e</b> pode ser preenchido para realizar uma busca específica entre as NF-e cadastradas no sistema.</li>
+                    <li>Os campos <b>Data de Início</b> e <b>Data Final</b> devem ser preenchidos com as respectivas datas de um período de tempo para que seja realizada a filtragem das NF-e com data de emissão entre o período especificado.</li>
+                    <li>O botão <b>Gerar DANFe</b> é responsável por gerar as DANFe das NF-e de acordo com os dados especificados no formulário e abrir uma página no navegador com o arquivo em formato PDF (contendo as DANFe das NF-e filtradas na base de dados) disponível para download e impressão.</li>
+
+                    <br>
                 </section>
             </div>
             <?php

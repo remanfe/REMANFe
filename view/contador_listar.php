@@ -119,25 +119,33 @@ if ($_SESSION['tipo_usuario'] == 0) {
 
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            for ($i = 0; $i < count($retorno); $i++) {
+                            if (count($retorno) == 0) {
                                 echo "<tr class='row'>";
-                                echo "	<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['nome_cont'] . "</span>";
+                                echo "	<td>";
+                                echo "    <i>Nenhum registro encontrado.</i>";
                                 echo "	</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['cnpj_cont'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "		<span>" . $retorno[$i]['email_cont'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-2'>";
-                                echo "		<span>" . $retorno[$i]['telefone_cont'] . "</span>";
-                                echo "</td>";
-                                echo "<td class='col-md-3'>";
-                                echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
-                                echo "	<a href='?acao=excluir&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
-                                echo "</td>";
                                 echo "</tr>";
+                            } else {
+                                for ($i = 0; $i < count($retorno); $i++) {
+                                    echo "<tr class='row'>";
+                                    echo "	<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['nome_cont'] . "</span>";
+                                    echo "	</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['cnpj_cont'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-3'>";
+                                    echo "		<span>" . $retorno[$i]['email_cont'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-2'>";
+                                    echo "		<span>" . $retorno[$i]['telefone_cont'] . "</span>";
+                                    echo "</td>";
+                                    echo "<td class='col-md-3'>";
+                                    echo "	<a href='?acao=atualizar&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/edit16.png' alt='Editar' title='Editar' class='img-espaco'></a>";
+                                    echo "	<a href='?acao=excluir&cnpj=" . $retorno[$i]['cnpj_cont'] . "'><img src='../components/images/icons/delete16.png' alt='Excluir' title='Excluir' class='img-espaco'></a>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
                             }
                         }
                         ?>
@@ -149,6 +157,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         }
                         ?>
                     </strong>
+                    <br>
                 </section>
             </div>
             <?php

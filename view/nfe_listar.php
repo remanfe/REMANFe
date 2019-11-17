@@ -206,7 +206,6 @@ if ($_SESSION['tipo_usuario'] == 0) {
                             $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             if (count($retorno) > 0) {
-
                                 for ($i = 0; $i < count($retorno); $i++) {
                                     echo "<tr class='row'>";
                                     echo "	<td class='col-md-2'>";
@@ -234,11 +233,16 @@ if ($_SESSION['tipo_usuario'] == 0) {
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<h5><i>Nenhum registro encontrado para a filtragem realizada.</i></h5>";
+                                echo "<tr class='row'>";
+                                echo "	<td>";
+                                echo "    <h5><i>Nenhum registro encontrado para a filtragem realizada.</i></h5>";
+                                echo "	</td>";
+                                echo "</tr>";
                             }
                         }
                         ?>
                     </table>
+                    <br>
                 </section>
             </div>
             <?php

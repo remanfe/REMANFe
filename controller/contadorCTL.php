@@ -122,6 +122,57 @@ if (isset($_POST['gravar'])) {
         $msg = 'Erro ao atualizar Contador!';
         header('location: ../view/contador_cadastrar.php?mensagem=' . $msg);
     }
+} else if (isset($_POST['atualizar_perfil'])) {
+    include '../controller/conexao.php';
+    include '../model/contador.php';
+
+    $cnpj = $_POST['cnpj'];
+    $nome = $_POST['nome'];
+    $nomef = $_POST['nomef'];
+    $cep = $_POST['cep'];
+    $logradouro = $_POST['logradouro'];
+    $complemento_logradouro = $_POST['complemento'];
+    $numero_logradouro = $_POST['numero'];
+    $bairro_logradouro = $_POST['bairro'];
+    $cidade_logradouro = $_POST['cidade'];
+    $estado_logradouro = $_POST['estado'];
+    $telefone = $_POST['telefone'];
+    $email = $_POST['email'];
+    $usuario_login = $_POST['usuario'];
+    $senha_login = $_POST['senha'];
+
+    $conn = conexao();
+    $sql = "UPDATE public.contador
+	SET nome_cont=?, nome_fantasia_cont=?, cep_cont=?, logradouro_cont=?, 
+        complemento_logradouro_cont=?, numero_logradouro_cont=?, bairro_logradouro_cont=?, 
+        cidade_logradouro_cont=?, uf_logradouro_cont=?, telefone_cont=?, email_cont=?, 
+        usuario_login_cont=?, senha_login_cont=? 
+	WHERE cnpj_cont=?;";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $nome);
+    $stmt->bindParam(2, $nomef);
+    $stmt->bindParam(3, $cep);
+    $stmt->bindParam(4, $logradouro);
+    $stmt->bindParam(5, $complemento_logradouro);
+    $stmt->bindParam(6, $numero_logradouro);
+    $stmt->bindParam(7, $bairro_logradouro);
+    $stmt->bindParam(8, $cidade_logradouro);
+    $stmt->bindParam(9, $estado_logradouro);
+    $stmt->bindParam(10, $telefone);
+    $stmt->bindParam(11, $email);
+    $stmt->bindParam(12, $usuario_login);
+    $stmt->bindParam(13, $senha_login);
+    $stmt->bindParam(14, $cnpj);
+
+    if ($stmt->execute()) {
+        $msg = 'Dados cadastrais atualizados com sucesso!';
+        echo ' ' . $cnpj;
+        header('location: ../view/contador_perfil.php?mensagem=' . $msg);
+    } else {
+        $msg = 'Erro ao atualizar dados cadastrais!';
+        header('location: ../view/contador_perfil.php?mensagem=' . $msg);
+    }
 }
 
 function verificarCNPJcont($cnpj) {
