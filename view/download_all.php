@@ -20,8 +20,8 @@ if (isset($_POST['download'])) {
     $msg = '';
 
     if ($verifica < 1) {
-        $msg = '<i>Não foram encontradas NF-e entre o período especificado para download!'
-                . '<br>Tente realizar o download novamente.</i>';
+        $msg = 'Não foram encontradas NF-e entre o período especificado para download!'
+                . '<br>Tente realizar o download novamente.';
         header('location: nfe_download.php?mensagem=' . $msg);
     } else {
         $zip = new ZipArchive();

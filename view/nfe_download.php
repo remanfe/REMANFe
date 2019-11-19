@@ -156,7 +156,7 @@ if ($_SESSION['tipo_usuario'] == 0) {
                     <strong>
                         <?php
                         if (isset($_REQUEST['mensagem'])) {
-                            echo " " . $_REQUEST['mensagem'];
+                            echo " <i>" . $_REQUEST['mensagem']. "</i>";
                         }
                         ?>
                     </strong>
