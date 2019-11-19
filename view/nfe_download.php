@@ -152,6 +152,15 @@ if ($_SESSION['tipo_usuario'] == 0) {
                         <?php
                     }
                     ?>
+                    <br>
+                    <strong>
+                        <?php
+                        if (isset($_REQUEST['mensagem'])) {
+                            echo " " . $_REQUEST['mensagem'];
+                        }
+                        ?>
+                    </strong>
+                    <br>
                 </section>
             </div>
             <?php
